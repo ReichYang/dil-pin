@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe"
+    "python.pythonPath": "env\\Scripts\\python.exe",
+    "files.autoSave": "afterDelay",
+    "python.venvPath": "~/env"
 }
