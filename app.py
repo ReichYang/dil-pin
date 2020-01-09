@@ -97,3 +97,5 @@ def download():
 
 #     return render_template("user.html")
 
+if __name__ == '__main__':
+    app.run()
