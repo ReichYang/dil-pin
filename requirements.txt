@@ -1,5 +1,4 @@
 flask
-urllib
 requests
 mimetypes
 bs4
