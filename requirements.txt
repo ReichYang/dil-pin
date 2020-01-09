@@ -1,6 +1,5 @@
 flask
 requests
-mimetypes
 bs4
 re
 flask_fontawesome
