@@ -2,3 +2,4 @@ flask
 requests
 bs4
 flask_fontawesome
+requests_toolbelt
