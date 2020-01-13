@@ -10,11 +10,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <!-- <script type="text/javascript" src="index.js"></script> -->
 
     <!-- Bulma Version 0.8.x-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                         <figure class="avatar">
                             <img src="https://i.pinimg.com/originals/95/84/c8/9584c88ce09f172901c9168628531f65.png">
                         </figure>
-                        <form action = "http://localhost:5000/login" method = "post"> 
+                        <form action="http://localhost:5000/login" method="post">
                             <div class="field">
                                 <div class="control">
                                     <input class="input is-large" type="email" placeholder="Your Email" name='email' autofocus="">
@@ -41,7 +41,7 @@
                                     <input class="input is-large" type="username" name='username' placeholder="Your Username">
                                 </div>
                             </div>
-                             <div class="field">
+                            <div class="field">
                                 <div class="control">
                                     <input class="input is-large" type="password" name='password' placeholder="Your Password">
                                 </div>
@@ -55,12 +55,12 @@
                             <button class="button is-block is-info is-large is-fullwidth">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
     </section>
-  
+
 </body>
 
 </html>

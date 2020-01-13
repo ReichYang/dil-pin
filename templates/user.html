@@ -8,178 +8,170 @@
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
-.img__wrap {
-  position: relative;
-  height: 200px;
-  width: 257px;
-}
-
-.img__description {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(29, 106, 154, 0.72);
-  color: #fff;
-  visibility: hidden;
-  opacity: 0;
-  font-size: 10px;
-  text-align: center;
-
-  /* transition effect. not necessary */
-  transition: opacity .2s, visibility .2s;
-}
-
-img{
-      margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.img__wrap:hover .img__description {
-  visibility: visible;
-  opacity: 1;
-
-
-  .img_container {
-  position: relative;
-  display: none;
-
-}
-
-/* Expanding image text */
-#imgtext {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  font-size: 20px;
-}
-
-/* Closable button inside the image */
-.closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
-}
-
-}
+        .img__wrap {
+            position: relative;
+            height: 200px;
+            width: 257px;
+        }
         
+        .img__description {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(29, 106, 154, 0.72);
+            color: #fff;
+            visibility: hidden;
+            opacity: 0;
+            font-size: 10px;
+            text-align: center;
+            /* transition effect. not necessary */
+            transition: opacity .2s, visibility .2s;
+        }
+        
+        img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        
+        .img__wrap:hover .img__description {
+            visibility: visible;
+            opacity: 1;
+            .img_container {
+                position: relative;
+                display: none;
+            }
+            /* Expanding image text */
+            #imgtext {
+                position: absolute;
+                bottom: 15px;
+                left: 15px;
+                color: white;
+                font-size: 20px;
+            }
+            /* Closable button inside the image */
+            .closebtn {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                color: white;
+                font-size: 35px;
+                cursor: pointer;
+            }
+        }
     </style>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script>
-                function myFunction(imgs) {
-                    doc_resp=JSON.parse(localStorage.getItem("doc_resp"));
-                    $("#detailcol").css('display','flex')
-                    let container = $(".img_container").css('display','block')
-               
-                    // Get the expanded image
-                    let expandImg = document.getElementById("expandedImg");
-                    $(expandedImg).attr('class','is-128x128')
-                    
-                    // Get the image text
-                    var imgText = document.getElementById("imgtext");    
-                    // Use the same src in the expanded image as the image being clicked on from the grid
-                    expandImg.src = $(imgs).prev().children('img').attr("src");;
-                    // Use the value of the alt attribute of the clickable image as text inside the expanded image
-                    expandedImg.innerHTML= imgs.innerHTML;
-                    // Show the container element (hidden with CSS)
-                    expandImg.parentElement.style.display = "block";
+        function myFunction(imgs) {
+            doc_resp = JSON.parse(localStorage.getItem("doc_resp"));
+            $("#detailcol").css('display', 'flex')
+            let container = $(".img_container").css('display', 'block')
 
-                    
-                    let current_picture_info = doc_resp.filter(e=> Object.keys(e).includes('images') ).filter(e=> e.images['236x'].url == expandImg.src)[0]
-                    console.log(current_picture_info)
-                    let $searchbox= $('#keyitems')
-                    $searchbox.empty()
-                    let keystoshow= ['created_at','description','grid_title','is_promoted','is_uploaded']
-                    Object.keys(current_picture_info).map(function(key){
-                        console.log(key)
-                        console.log(current_picture_info[key])
-                        if (keystoshow.includes(key)){
-                            let $outer = $('<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>'+key+'</strong>'+'   '+current_picture_info[key]+' </a>')
-                                                
-                            $searchbox.append($outer)
+            // Get the expanded image
+            let expandImg = document.getElementById("expandedImg");
+            $(expandedImg).attr('class', 'is-128x128')
+
+            // Get the image text
+            var imgText = document.getElementById("imgtext");
+            // Use the same src in the expanded image as the image being clicked on from the grid
+            expandImg.src = $(imgs).prev().children('img').attr("src");;
+            // Use the value of the alt attribute of the clickable image as text inside the expanded image
+            expandedImg.innerHTML = imgs.innerHTML;
+            // Show the container element (hidden with CSS)
+            expandImg.parentElement.style.display = "block";
 
 
+            let current_picture_info = doc_resp.filter(e => Object.keys(e).includes('images')).filter(e => e.images['236x'].url == expandImg.src)[0]
+            console.log(current_picture_info)
+            let $searchbox = $('#keyitems')
+            $searchbox.empty()
+            let keystoshow = ['created_at', 'description', 'grid_title', 'is_promoted', 'is_uploaded']
+            Object.keys(current_picture_info).map(function(key) {
+                console.log(key)
+                console.log(current_picture_info[key])
+                if (keystoshow.includes(key)) {
+                    let $outer = $('<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>' + key + '</strong>' + '   ' + current_picture_info[key] + ' </a>')
 
-                        }
-                            
-
-                    })
-
-
-                    const colorThief = new ColorThief();
-
-                    let domin_color, colorpa;
-                    const img = new Image();
-
-                    img.addEventListener('load', function() {
-                    
-                    
-                    domin_color=colorThief.getColor(img)
-                    colorpa=colorThief.getPalette(img,5)
-           
-                    $('#swatch').css('border-radius','50%')
-                     $('#swatch').css('height','30px')
-                     $('#swatch').css('width','30px')
-
-                    $('#swatch').css('display',"inline-block")
-                    $('#swatch').css('background-color','rgb('+domin_color[0]+','+domin_color[1]+','+domin_color[2]+')')
-                    
-                    $pa=$('.pa_swatches')
-                    $pa.empty()
-                     colorpa.forEach(function(e){
-                        let $color= $('<span>')
-                        $color.css('background-color','rgb('+e[0]+','+e[1]+','+e[2]+')')
-                        $color.css('border-radius','50%')
-                        $color.css('height','30px')
-                        $color.css('width','30px')
-                        $color.css('display',"inline-block")
-                        $pa.append($color)})
-                    
-                    });
-
-                   
+                    $searchbox.append($outer)
 
 
-                    
-                    
-                    let imageURL = expandImg.src;
-                    let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
 
-                    img.crossOrigin = 'Anonymous';
-                    img.src = googleProxyURL + encodeURIComponent(imageURL);
-    
-                   
-                    
-                    
                 }
-    
+
+
+            })
+
+
+            const colorThief = new ColorThief();
+
+            let domin_color, colorpa;
+            const img = new Image();
+
+            img.addEventListener('load', function() {
+
+
+                domin_color = colorThief.getColor(img)
+                colorpa = colorThief.getPalette(img, 5)
+
+                $('#swatch').css('border-radius', '50%')
+                $('#swatch').css('height', '30px')
+                $('#swatch').css('width', '30px')
+
+                $('#swatch').css('display', "inline-block")
+                $('#swatch').css('background-color', 'rgb(' + domin_color[0] + ',' + domin_color[1] + ',' + domin_color[2] + ')')
+
+                $pa = $('.pa_swatches')
+                $pa.empty()
+                colorpa.forEach(function(e) {
+                    let $color = $('<span>')
+                    $color.css('background-color', 'rgb(' + e[0] + ',' + e[1] + ',' + e[2] + ')')
+                    $color.css('border-radius', '50%')
+                    $color.css('height', '30px')
+                    $color.css('width', '30px')
+                    $color.css('display', "inline-block")
+                    $pa.append($color)
+                })
+
+            });
+
+
+
+
+
+
+            let imageURL = expandImg.src;
+            let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+
+            img.crossOrigin = 'Anonymous';
+            img.src = googleProxyURL + encodeURIComponent(imageURL);
+
+
+
+
+        }
     </script>
     <script src="{{url_for('static', filename='vibrant.js')}}"></script>
 
 </head>
 
 <body>
-<section class="hero is-small is-info is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Instruction
-      </h1>
-      <h2 class="subtitle">
-        Put the keywords you want to search in the query box below. Check your account infomation on the left and the result of the search on the right. Examine the pictures by clicking on them. Download them as you want.
-      </h2>
-    </div>
-  </div>
-</section>
-        
+    <section class="hero is-small is-info is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Instruction
+                </h1>
+                <h2 class="subtitle">
+                    Put the keywords you want to search in the query box below. Check your account infomation on the left and the result of the search on the right. Examine the pictures by clicking on them. Download them as you want.
+                </h2>
+            </div>
+        </div>
+    </section>
+
 
     <div class="container">
         <div id="flow">
@@ -189,22 +181,22 @@ img{
         </div>
 
         <div class="section">
-        
+
             <div class="box">
                 <div class="field has-addons">
                     <div class="control is-expanded">
                         <input id="query" class="input has-text-centered" placeholder="» » » » » » put your query here « « « « « «">
                     </div>
-                    
+
                     <div class="control">
                         <div class="select is-info">
-                        <select>
+                            <select>
                             <option>250</option>
                             <option>500</option>
                         </select>
                         </div>
                     </div>
-                    
+
                     <div class="control">
                         <a class="button is-info" id='sub_btn'>Search</a>
                     </div>
@@ -212,23 +204,23 @@ img{
             </div>
             <br>
             <div class='detail columns is-mobile is-multiline is-centered' id='detailcol' style="display: none">
-            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-            <div class="column is-half-mobile">
-           
-            <div class="img_container">
-                <!-- Close the image -->
-                
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <div class="column is-half-mobile">
 
-                <!-- Expanded image -->
-                <img id="expandedImg" >
+                    <div class="img_container">
+                        <!-- Close the image -->
 
-                <!-- Image text -->
-                <div class="output-layout has-text-centered">
-                    <div class="function get-color">
-                        <h3 class="function-title">Dominant Color</h3>
-                        
-                        <div class="swatches">
-                            <span id="swatch"></div>
+
+                        <!-- Expanded image -->
+                        <img id="expandedImg">
+
+                        <!-- Image text -->
+                        <div class="output-layout has-text-centered">
+                            <div class="function get-color">
+                                <h3 class="function-title">Dominant Color</h3>
+
+                                <div class="swatches">
+                                    <span id="swatch"></div>
                         </div>
 
                     </div>
@@ -256,201 +248,206 @@ img{
                     <span class="icon is-left">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </span>
-                    </p>
-                </div>
-                <div id='keyitems' style="overflow-y: auto">  
-                </div>
-                <div class="panel-block" style="display:none">
-                    <button class="button is-link is-outlined is-fullwidth">
+                                    </p>
+                                </div>
+                                <div id='keyitems' style="overflow-y: auto">
+                                </div>
+                                <div class="panel-block" style="display:none">
+                                    <button class="button is-link is-outlined is-fullwidth">
                     Reset all filters
                     </button>
-                </div>
-            
-            </nav>
-
-
-
-            </div>
-            
-            </section>        
-        </div>
-            <br>
-            <!-- Developers -->
-            <div class="row columns">
-                <div class="column is-half">
-                    <div class="card large">
-                         <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-96x96">
-                                        <img src="{{data.image_medium_url}}" alt="Image">
-                                    </figure>
                                 </div>
-                                <div class="media-content">
-                                    <p class="title is-4 no-padding">{{data.full_name}}</p>
-                                    <p><span class="title is-6"><a href="{{data.website_url}}">{{data.username}}</a></span></p>
-                                    <p class="subtitle is-6">Developer</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                {{data.about}}
-                                <div class="background-icon"><span class="icon-twitter"></span></div>
+
+                                </nav>
+
+
+
                             </div>
 
-                            <div class="field is-grouped is-grouped-multiline">
-                            {% for key in data.keys() %}
-                                <div class="control">
-                                    <div class="tags has-addons">
-                                    <span class="tag is-info">{{key}}</span>
-                                    <span class="tag is-light">{{data[key]}}</span>
+                            </section>
+                        </div>
+                        <br>
+                        <!-- Developers -->
+                        <div class="row columns">
+                            <div class="column is-half">
+                                <div class="card large">
+                                    <div class="card-content">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <figure class="image is-96x96">
+                                                    <img src="{{data.image_medium_url}}" alt="Image">
+                                                </figure>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-4 no-padding">{{data.full_name}}</p>
+                                                <p><span class="title is-6"><a href="{{data.website_url}}">{{data.username}}</a></span></p>
+                                                <p class="subtitle is-6">Developer</p>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            {{data.about}}
+                                            <div class="background-icon"><span class="icon-twitter"></span></div>
+                                        </div>
+
+                                        <div class="field is-grouped is-grouped-multiline">
+                                            {% for key in data.keys() %}
+                                            <div class="control">
+                                                <div class="tags has-addons">
+                                                    <span class="tag is-info">{{key}}</span>
+                                                    <span class="tag is-light">{{data[key]}}</span>
+                                                </div>
+                                            </div>
+                                            {% endfor%}
+                                        </div>
                                     </div>
                                 </div>
-                            {% endfor%}
+                            </div>
+                            <div class="column is-half">
+                                <div class="has-text-centered">
+                                    <button class="button is-link is-light" id='downloadpic' style="display:none">Download All Pictures</button>
+                                </div>
+                                <br>
+
+                                <div class="card large" id='grid'>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
+                    <!-- End Developers -->
+
+
                 </div>
-                <div class="column is-half">
-                    <div class="has-text-centered">
-                    <button class="button is-link is-light" id='downloadpic' style="display:none">Download All Pictures</button>
-                    </div>
-                    <br>
-                   
-                    <div class="card large" id='grid'>
+            </div>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="content has-text-centered">
+                        <div class="soc">
+                            <a href="#"><i class="fa fa-github-alt fa-2x" aria-hidden="true"></i></a>
 
                         </div>
+                        <p>
+                            <strong>Initiated</strong> by <a href="https://cdh.unc.edu/">Digital Innovation Lab</a>.
+                            <br>
+                        </p>
                     </div>
                 </div>
+            </footer>
 
-            </div>
-            <!-- End Developers -->
+            <script>
+                $(document).ready(function() {
+                    let doc_resp;
+                    let doc_imgs;
+                    let doc_desc;
+                    let counter;
+
+                    $('#downloadpic').click(function() {
+
+                        let q = $('#query').val();
+                        $('#downloadpic').attr('class', "button is-link is-light is-loading")
+                        $('#downloadpic').text('Downloading')
+                        $.ajax({
+                            url: "/download",
+                            type: "get",
+                            data: {
+                                query: q,
+                                doc_imgs
+                            },
+                            success: function(response) {
+                                $('#downloadpic').attr('class', "button is-link is-light ")
+                                $('#downloadpic').text('Successfully download ' + doc_imgs.length + ' images');
+                                $("#downloadpic").append($('<span class="icon is-small"> <i class="fa fa-check"></i></span>'))
 
 
-        </div>
-    </div>
+                            }
 
-    <footer class="footer">
-            <div class="container">
-                <div class="content has-text-centered">
-                    <div class="soc">
-                        <a href="#"><i class="fa fa-github-alt fa-2x" aria-hidden="true"></i></a>
+                        })
+                    })
 
-                    </div>
-                    <p>
-                        <strong>Initiated</strong> by <a href="https://cdh.unc.edu/">Digital Innovation Lab</a>.
-                        <br>
-                    </p>
-                </div>
-            </div>
-        </footer>
 
-         <script>
-            $(document).ready(function() {
-                 let doc_resp;
-                 let doc_imgs;
-                 let doc_desc;
-                 let counter;
+                    $('#sub_btn').click(function() {
 
-                $('#downloadpic').click(function(){
-                   
-                    let q = $('#query').val();
-                    $('#downloadpic').attr('class',"button is-link is-light is-loading")
-                    $('#downloadpic').text('Downloading')
-                    $.ajax({
-                    url: "/download",
-                    type: "get",
-                    data: {query: q, doc_imgs},
-                    success: function(response) {
-                        $('#downloadpic').attr('class',"button is-link is-light ")
-                       $('#downloadpic').text('Successfully download '+doc_imgs.length+' images'); 
-                      $("#downloadpic").append($('<span class="icon is-small"> <i class="fa fa-check"></i></span>'))
-                       
-                        
-                        }
+                        let q = $('#query').val();
+                        $.ajax({
+                            url: "/login",
+                            type: "get",
+                            data: {
+                                query: q
+                            },
+                            success: function(response) {
+                                $('#downloadpic').css('display', 'inline')
+                                doc_resp = response
+                                $('#grid').empty()
 
-                })
-                })
+                                let imgs = response.filter(e => Object.keys(e).includes('images')).map(e => e.images['236x'].url)
+                                let desc = response.filter(e => Object.keys(e).includes('images')).map(e => e.description)
 
-                 
-                $('#sub_btn').click(function(){
-                    
-                    let q = $('#query').val();
-                    $.ajax({
-                    url: "/login",
-                    type: "get",
-                    data: {query: q},
-                    success: function(response) {
-                    $('#downloadpic').css('display','inline')
-                    doc_resp=response
-                    $('#grid').empty()
-                    
-                    let imgs= response.filter(e=> Object.keys(e).includes('images') ).map(e=> e.images['236x'].url)
-                    let desc= response.filter(e=> Object.keys(e).includes('images') ).map(e=> e.description)
+                                doc_imgs = imgs;
+                                doc_desc = desc;
+                                localStorage.setItem("doc_resp", JSON.stringify(doc_resp));
 
-                    doc_imgs=imgs;
-                    doc_desc=desc;
-                    localStorage.setItem("doc_resp", JSON.stringify(doc_resp));
-                   
-                    let $grid=$('#grid')
-                    let $pictures= $('<div class="columns is-multiline is-mobile" id="pictures">')   
-                    for (var i = 0; i < 16; i++) {
-                       let myHTML = $('<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src='+doc_imgs[i]+'></figure>   <p class="img__description" onclick="myFunction(this);">'+ doc_desc[i]+'</p></div>');
-                        $pictures.append(myHTML)
-                    }
-                    $grid.append($pictures)
-                    counter=16
-               
-                    },
-                    error: function() {
-                        //Do Something to handle error
-                        
-                    }
+                                let $grid = $('#grid')
+                                let $pictures = $('<div class="columns is-multiline is-mobile" id="pictures">')
+                                for (var i = 0; i < 16; i++) {
+                                    let myHTML = $('<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src=' + doc_imgs[i] + '></figure>   <p class="img__description" onclick="myFunction(this);">' + doc_desc[i] + '</p></div>');
+                                    $pictures.append(myHTML)
+                                }
+                                $grid.append($pictures)
+                                counter = 16
+
+                            },
+                            error: function() {
+                                //Do Something to handle error
+
+                            }
+                        });
+
+
+
                     });
-                
-  
-                
+
+                    $(window).scroll(function() {
+
+
+
+                        if ($(document).height() - $(this).height() / $(this).scrollTop() > 0.97) {
+                            console.log("should load");
+                            let $grid = $('#grid')
+                            let $pic_grid = $('#pictures')
+                            if (counter > doc_imgs.length - 16) {
+
+                            } else {
+                                for (let i = counter; i < counter + 16; i += 1) {
+
+                                    console.log("this is i")
+                                    console.log(i)
+                                    let myHTML = $('<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src=' + doc_imgs[i] + '></figure>   <p class="img__description" onclick="myFunction(this);">' + doc_desc[i] + '</p></div>');
+
+                                    $pic_grid.append(myHTML)
+                                    $grid.append($pic_grid)
+
+
+                                }
+                                counter = counter + 16;
+                                console.log('end of the lopp')
+                                console.log(counter)
+                            }
+
+
+                        }
+
+                    });
+
+
+
+
+
+
+
                 });
-
-                  $(window).scroll(function(){
-
-                  
-
-                    if ($(document).height() - $(this).height()/$(this).scrollTop()>0.97) {
-                        console.log("should load");
-                        let $grid= $('#grid')
-                        let $pic_grid= $('#pictures')   
-                        if(counter>doc_imgs.length-16){
-
-                        } else{
-                            for (let i=counter; i < counter+16; i+=1) {
-                            
-                            console.log("this is i")
-                            console.log(i)
-                            let myHTML = $('<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src='+doc_imgs[i]+'></figure>   <p class="img__description" onclick="myFunction(this);">'+ doc_desc[i]+'</p></div>');
-                            
-                            $pic_grid.append(myHTML)
-                            $grid.append($pic_grid)
-                            
-                            
-                        }
-                        counter=counter+16;
-                        console.log('end of the lopp')
-                        console.log(counter)
-                        }
-                        
-                        
-                    } 
-                    
-                });               
-                    
-                    
-                
-                
-
-
-
-            });
-        </script>
+            </script>
 
 
 </body>

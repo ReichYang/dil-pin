@@ -43,7 +43,7 @@ def login(data=None):
             return redirect(url_for(request.url))
 
     if request.method == 'GET':
-        print("get this bitch")
+        
         query = flask.request.args.get('query')
         # current_account = flask.g.get('current')
         current_account=flask.current_app.account
@@ -75,7 +75,7 @@ def download():
         print('downloading pictures')
         for i in imgs:
             img_name=re.search(pattern='[0-9a-z]*.jpg',string=i).group()
-            print('/'+path+'/'+img_name)  
+            # print('/'+path+'/'+img_name)  
             req.urlretrieve(i, path+'/'+img_name)
         return  "susscess"
 
