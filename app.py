@@ -27,12 +27,12 @@ def login(data=None):
         user = request.form['username']
         email=request.form['email']
         pw = request.form['password']
-        
+        print(user, file=sys.stderr)
         pint = Pinterest.Pinterest(username=user,email=email, password=pw)
         flask.current_app.account= pint
         login_sts= pint.login()
-        # print(login_sts.status_code, file=sys.stderr)
-        # print(pint.get_user_overview(), file=sys.stderr)
+        print(login_sts.status_code, file=sys.stderr)
+        print(pint.get_user_overview(), file=sys.stderr)
         print(flask.current_app.account)
         if(login_sts.status_code==200):
             session['username']=user
