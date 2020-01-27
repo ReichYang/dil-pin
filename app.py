@@ -48,7 +48,12 @@ def login(data=None):
         # current_account = flask.g.get('current')
         current_account=flask.current_app.account
         # print(current_account)
-        res=current_account.search('pins',query)
+        res = []
+        search_batch = current_account.search('pins', query)
+        while len(search_batch) > 0 and len(res) < 1000:
+            res += search_batch
+            search_batch = current_account.search('pins', query=query)
+        # res=current_account.search('pins',query)
         with open(str(query)+'.json', 'w') as f:
             json.dump(res, f)
 
