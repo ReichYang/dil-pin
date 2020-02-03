@@ -35,8 +35,7 @@ def login(data=None):
             session['password']=pw
             session['email']=email
             return render_template("user.html",data=pint.get_user_overview())
-        else:
-            return redirect(url_for('login'))
+
 
     if request.method == 'GET':
         
