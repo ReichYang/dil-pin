@@ -9,15 +9,15 @@ import urllib.request as req
 from flask_fontawesome import FontAwesome
 
 
-app = Flask(__name__)
-app.secret_key = os.urandom(12)
+application = Flask(__name__)
+application.secret_key = os.urandom(12)
 
-@app.route("/")
+@application.route("/")
 def index():
     return render_template("login.html")
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@application.route('/login', methods=['POST', 'GET'])
 def login(data=None):
     if request.method == 'POST':
         user = request.form['username']
@@ -55,7 +55,7 @@ def login(data=None):
 
         return flask.jsonify(res)
 
-@app.route('/download', methods=['POST', 'GET'])
+@application.route('/download', methods=['POST', 'GET'])
 def download():
     if request.method == 'GET':
         # print(flask.request.args)
@@ -84,4 +84,4 @@ def download():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)
+    application.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)
