@@ -39,27 +39,30 @@
         .img__wrap:hover .img__description {
             visibility: visible;
             opacity: 1;
-            .img_container {
-                position: relative;
-                display: none;
-            }
-            /* Expanding image text */
-            #imgtext {
-                position: absolute;
-                bottom: 15px;
-                left: 15px;
-                color: white;
-                font-size: 20px;
-            }
-            /* Closable button inside the image */
-            .closebtn {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                color: white;
-                font-size: 35px;
-                cursor: pointer;
-            }
+        }
+        
+        .img_container {
+            position: relative;
+            display: none;
+        }
+        /* Expanding image text */
+        
+        #imgtext {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: white;
+            font-size: 20px;
+        }
+        /* Closable button inside the image */
+        
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
         }
     </style>
 
@@ -191,7 +194,7 @@
                     <div class="control">
                         <div class="select is-info">
                             <select>
-                            <option>250</option>
+                            <option>1000</option>
                             <option>500</option>
                         </select>
                         </div>
@@ -271,6 +274,10 @@
                         <div class="row columns">
                             <div class="column is-half">
                                 <div class="card large">
+                                    <div class="control">
+                                        <button class="button is-info is-centered" id='info_btn'>Download My Info
+                                        </button>
+                                    </div>
                                     <div class="card-content">
                                         <div class="media">
                                             <div class="media-left">
@@ -366,6 +373,28 @@
                         })
                     })
 
+                    $('#info_btn').click(function() {
+                        console.log('info down')
+                        $.ajax({
+                            url: "/account",
+                            type: "get",
+                            data: {
+                                query: 'get'
+                            },
+
+
+                            success: function(response) {
+
+                                $('#info_btn').text('Successfully download ')
+                            }
+
+
+
+
+                        })
+                    })
+
+
 
                     $('#sub_btn').click(function() {
 
@@ -407,6 +436,10 @@
 
 
                     });
+
+
+
+
 
                     $(window).scroll(function() {
 

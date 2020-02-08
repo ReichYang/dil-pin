@@ -34,11 +34,15 @@ def login(data=None):
         print(login_sts.status_code, file=sys.stdout)
         print(pint.get_user_overview(), file=sys.stdout)
         print(flask.current_app.account)
+
+        user_info= pint.get_user_overview()
+        flask.current_app.user_info= user_info
+
         if(login_sts.status_code==200):
             session['username']=user
             session['password']=pw
             session['email']=email
-            return render_template("user.html",data=pint.get_user_overview())
+            return render_template("user.html",data=user_info)
         else:
             return redirect(url_for('login'))
 
@@ -62,16 +66,10 @@ def login(data=None):
 @app.route('/download', methods=['POST', 'GET'])
 def download():
     if request.method == 'GET':
-        # print(flask.request.args)
         query = flask.request.args.get('query')
-        # print(flask.request.args.getlist('doc_imgs[]'))
-
-        # print('get query'+query)
         imgs = flask.request.args.getlist('doc_imgs[]')
-        # print(imgs)
+
         path=query
-        # print('path is')
-        # print(path)
         if not os.path.exists(path):
             os.mkdir(path)
         
@@ -84,6 +82,16 @@ def download():
             req.urlretrieve(i, path+'/'+img_name)
         return  "susscess"
 
+
+@app.route('/account', methods=['POST', 'GET'])
+def account():
+    if request.method == 'GET':
+        user_info = flask.current_app.user_info
+
+        with open(user_info['username']+'.json', 'w') as f:
+            json.dump(user_info, f)
+    return "success"
+    
 
 
 # @app.route('/scrapper')
