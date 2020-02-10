@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login To Pinterest</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bulma Version 0.8.x-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}" />
+</head>
+
+<body>
+    <section class="hero is-small is-light is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Instruction
+                </h1>
+                <h2 class="subtitle">
+                    Please select the folder you want to analyze and then click on the
+                    button so the scripts could run.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="columns is-multiple">
+        <div class="column is-one-third">
+            <div class="select is-multiple">
+                <select multiple size="6">
+                    {% for key in data %}
+                    <option value="{{key}}"> {{key}}</option>
+                    {% endfor%}
+                </select>
+            </div>
+
+            <div class="button is-light" id="ana">Select the Folder to Analyze</div>
+            <div class="box" id="folderinfo"></div>
+        </div>
+
+    </section>
+
+    <section id='viz'>
+
+
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <div class="soc">
+                    <a href="#"><i class="fa fa-github-alt fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <p>
+                    <strong>Initiated</strong> by
+                    <a href="https://cdh.unc.edu/">Digital Innovation Lab</a>.
+                    <br />
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#ana').click(function () {
+            dir_name = $("option:selected").text()
+            $.ajax({
+                url: "/get_folder",
+                type: "get",
+                data: {
+                    name: dir_name
+                },
+                success: function (response) {
+                    $('#folderinfo').empty()
+                    imgs = response['result']['array']
+                    overview = response['result']['summary']
+                    // console.log(overview)
+                    $('#folderinfo').append('<div class="tag is-info">There are ' + imgs
+                        .length + ' pics in this folder.</div>')
+                    imgs.forEach(element => {
+                        let $img = $('<div class="tag">')
+                        $img.text(element)
+                        $('#folderinfo').append($img)
+                    });
+                    // $('#folderinfo').append('<div class="tag">')
+                }
+            })
+
+
+
+
+
+        });
+    })
+</script>
+
+</html>
