@@ -4,3 +4,8 @@ bs4
 flask_fontawesome
 requests_toolbelt
 gunicorn
+wordcloud
+matplotlib
+pandas
+google-cloud-vision
+sklearn
