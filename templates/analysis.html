@@ -52,16 +52,20 @@
                     {% endfor%}
                 </select>
             </div>
-
+       
             <div class="button is-light" id="ana">Analyze This Folder</div>
+           
             <div class="box" id="folderinfo"></div>
         </div>
 
     </section>
 
     <section class="columns is-multiple" id='viz'>
-        <div class="column is-one-third" id="container"></div>
-        <p>This is where container places</p>
+        
+        <button class="button is-light" id="ts1">Testing Button</button>
+      
+        <p>This is contianer</p>
+        <p> haha</p>
 
     </section>
 
@@ -100,7 +104,7 @@
                         .length + ' pics in this folder.</div>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
-                        $img.attr ('src', 'Pics'+'/'+ dir_name+'/'+element)
+                        $img.attr('src', 'Pics' + '/' + dir_name + '/' + element)
                         $('#folderinfo').append($img)
                     });
                     // $('#folderinfo').append('<div class="tag">')
@@ -112,6 +116,22 @@
 
 
         });
+
+
+        $('#ts1').click(function () {
+            console.log("triggered")
+            $.ajax({
+                url: "/get_image_pngs_json",
+                type: "get",
+
+                success: function (response) {
+                    console.log('testing yes')
+                }
+            })
+
+
+
+        })
     })
 </script>
 

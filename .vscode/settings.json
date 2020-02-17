@@ -4,5 +4,6 @@
     "python.venvPath": "~/env",
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.pylamaEnabled": true
+    "python.linting.pylamaEnabled": true,
+    "python.formatting.provider": "yapf"
 }
