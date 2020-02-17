@@ -197,7 +197,7 @@ def get_image_pngs_json():
     # DETECT COLOR PROPERTIES
     df_list = []
     for path in img_paths:
-    df_list.append(vision_functions.get_properties_df(path))
+        df_list.append(vision_functions.get_properties_df(path))
 
     prop_json = str(vision_functions.get_properties_json(df_list))
     intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
