@@ -14,6 +14,18 @@
     <!-- Bulma Version 0.8.x-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}" />
+    <script src="https://github.highcharts.com/master/highcharts.js"></script>
+    <script src="https://github.highcharts.com/master/highcharts-more.js"></script>
+    <script src="https://github.highcharts.com/master/modules/exporting.js"></script>
+
+    <style>
+        #container {
+            min-width: 320px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -47,8 +59,9 @@
 
     </section>
 
-    <section id='viz'>
-
+    <section class="columns is-multiple" id='viz'>
+        <div class="column is-one-third" id="container"></div>
+        <p>This is where container places</p>
 
     </section>
 
