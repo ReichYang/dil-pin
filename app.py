@@ -138,11 +138,11 @@ def get_image_pngs_json():
     i = 1
     directory = os.fsencode('dil-pin/Pics/' + FOLDER_NAME)
     for file in os.listdir(directory):
-    filename = os.fsdecode(file)
-    if (filename.endswith(".jpg") & (i <= MAX)): 
-        img_str = 'dil-pin/Pics/' + FOLDER_NAME+ '/'+ str(filename)
-        img_paths.append(img_str)
-        i = i +1
+        filename = os.fsdecode(file)
+        if (filename.endswith(".jpg") & (i <= MAX)): 
+            img_str = 'dil-pin/Pics/' + FOLDER_NAME+ '/'+ str(filename)
+            img_paths.append(img_str)
+            i = i +1
 
     print(len(img_paths))
     print('paths gathered')
