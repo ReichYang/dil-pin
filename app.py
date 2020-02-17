@@ -51,7 +51,7 @@ def login(data=None):
         # print(current_account)
         res = []
         search_batch = current_account.search('pins', query)
-        while len(search_batch) > 0 and len(res) < 500:
+        while len(search_batch) > 0 and len(res) < 250:
             res += search_batch
             search_batch = current_account.search('pins', query=query)
         # res=current_account.search('pins',query)
@@ -105,6 +105,7 @@ def analysis():
 @app.route('/get_folder', methods=['GET'])
 def get_folder():
      if request.method == 'GET':
+         
          folder = flask.request.args.get('name')
          folder= folder.strip()
          res={}
