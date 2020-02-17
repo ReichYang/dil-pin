@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pinterest-project-264918",
+  "private_key_id": "228231b1ca767662726b604ac5b003e402690a81",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD7H5LnEGIk2mC/\nd8Phk6WCsmGQjDHeV7NUI5RgQdIQqNceZ7ATFWcbUXNfkrEabhqkJ8ma9H3Fo3hB\nETd3RmSBU3sn20aS3F+N9wySmvNXO/ArqEot5WKO6W9CD8uDwNmxIKw39f8Qeb8Z\n5tqrHeIXP1UuZNJDiBcmPPy9qSxWAD9qMVN8iVXM/XFOYnuT/mgPQsQa5wNFUh5T\n/mGCkeIr5jx8pKHEfAY8PDbYLdZZ0vQV7tuAF3nK45P0t6RL3mymkius3L50kzpj\nj6docZXbEnMequolpPyxs0scNcZ/nooFULaOnpfD5JJ3HuUAVYwVKZHGqT2jWKlJ\nRvJwhsI/AgMBAAECggEAJs1xpwd2isg9g8hPOZdVTzUd8zZebEMz3+/heOAiw9U6\n7CVMZR59AJEc2Ssy92kE79GACtP1bSj9p1wwLFtxozQRhw6QQJgRob+HL04HBLcr\nvKszzxSvHnL+cIA9S53sZTytr7XwlAyj1S5BIoirCzmLgXAttyaboRpyWSH/SkhQ\nKOBVkZdayCF+OUTWFU4ZFSarHp7qvtc1O2GV7TUSkM/JJXBjpMNUHBkkKqltcU21\nPyA1GPeSwufo9KAlyLuRXnj3wdedHs5qaUQ7S1amc5LHF1iOWYjuFUf0saX2YGAt\n/sk8JV1705rSJk8k4INF0SdRs7ROv/nu7I1xKkXmqQKBgQD+bVmIRYC69H/qsWtG\ntWXr/05dAJ2FAJZDVvDH5P1d2SodOPq7YUdeeQoDpHg5I4RTyW5vIrY2grwa8+wK\n22jr0KaJlM9xC+EKAOIt3WNe5zRM9qZsATMQznRH2hw6jXA7K5LFMj1eAah/s4Sk\nixlmKJe5RS44fVox157HDcfWWQKBgQD8rP7doixNwQk3HOhBy/jhgWfp7t4ORUqI\n+i0AwFpkCxT1NHtlGcewLsHMKjOiH5BUAeNm/QHpqf80bf2Uo5rGvzxPJEp0xbN1\nzOBMkWO+LvRXRcs9ozsV75twEv+ycHEDWiJh/olQr4YJaDhGDbVvKafoBvjxJQQe\nhW3uV1r6VwKBgQCc1DClFBqGoyGaPCShID2kG+pk33U5P6Rf+95NiTQ4Ph18h9vd\n1tfUPw3SMvY8Wk0+DGL7NE1XCn0CrCpqgtaIzUNqeQTpbOYZcXP5y4ZuQFv3uO3a\nk16z1F7Oz34pBXgRsQk2boJvSNxhYvm3J1rPouPrOt6DyZjoMj3X+wGceQKBgCIH\nQkOi5YiLKKyNbhH+YEQuY0oz6x/M4R7VYl4piYLTozzqlnulHylxApR2UoHQ8mT9\n5BwokqtfQ4lSDsaHyf5eHschwg072tFQiByHsAEa3bkrIxXn97sai7pqNJlZXz7u\nUpcT6nY9TTXTHVEB459W4s/ysG/5ZjaeDZH9nbj9AoGABqmUKZioBme5YTa4RSSz\nugw57D/BmL7p7UesHHeogDO/P0HN+ocogfr+4QnupWnxMKfXDF//1Zvo48K7EfkB\nrS688RFgzHNefsZXDem2jWev9zjzLCJOtJlDXu72ND57yryzj8VvA9yMzcDzhKQX\n1uyR0fpDXWFHfSLx8V3JssA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "pinterest-service@pinterest-project-264918.iam.gserviceaccount.com",
+  "client_id": "114056167276056907840",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pinterest-service%40pinterest-project-264918.iam.gserviceaccount.com"
+}

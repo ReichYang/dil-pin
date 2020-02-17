@@ -6,6 +6,8 @@ from flask import render_template
 import Pinterest
 import urllib.request as req
 from flask_fontawesome import FontAwesome
+import vision_functions
+import os
 
 
 app = Flask(__name__)
@@ -111,6 +113,7 @@ def get_folder():
          res={}
          res['summary']=os.stat('Pics/'+folder)
          res['array']=os.listdir('Pics/'+folder)
+         flask.current_app.account.folder_name = res['array']
 
         # So the variable res['array'] contains all the file names you need to use.
         # You could continue coding from here
@@ -119,6 +122,91 @@ def get_folder():
 
          return jsonify(result=res)
 
+# ANALYSIS BUTTON
+@app.route('/get_folder', methods=['GET'])
+def get_image_pngs_json():
+    STOP_WORDS = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',"you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself','yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her','hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them','their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom','this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are','was', 'were', 'be', 'been', 'being', 'have', 'has', 'had','having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and','but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at','by', 'for', 'with', 'about', 'against', 'between', 'into','through', 'during', 'before', 'after', 'above', 'below', 'to','from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under','again', 'further', 'then', 'once', 'here', 'there', 'when','where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more','most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own','same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will','just', 'don', "don't", 'should', "should've", 'now', 'd', 'll','m', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn',"couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't",'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma','mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't",'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't",'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
+    FOLDER_NAME = flask.current_app.folder_name
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="Google_vision_API/pinterest-service.json"
+
+    SEARCH_TERM= re.split('_', FOLDER_NAME)[1]
+
+    # make list of image paths
+    img_paths = []
+
+    MAX = 15
+    i = 1
+    directory = os.fsencode('dil-pin/Pics/' + FOLDER_NAME)
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if (filename.endswith(".jpg") & (i <= MAX)): 
+            img_str = 'dil-pin/Pics/' + FOLDER_NAME+ '/'+ str(filename)
+            img_paths.append(img_str)
+            i = i +1
+
+    print(len(img_paths))
+    print('paths gathered')
+
+    # LABEL WORDCLOUD
+    label_lists = vision_functions.get_label_lists(img_paths)
+    wordcloud = vision_functions.get_wordcloud(label_lists, SEARCH_TERM)
+    wordcloud.to_file('image_outputs/label_wordcloud.png')
+    print('label_wordcloud saved')
+
+    # DESCRIPTION WORDCLOUD
+    json_path = 'dil-pin/' + SEARCH_TERM + '.json'
+    json_dict = vision_functions.get_json_dict(json_path)
+    descripts = vision_functions.get_descripts(json_dict)
+    STOP_WORDS.append(SEARCH_TERM)
+    wordcloud = vision_functions.get_desc_wordcloud(descripts, STOP_WORDS)
+    wordcloud.to_file('image_outputs/description_wordcloud.png')
+    print('decription_wordcloud saved')
+
+    # DOMAIN WORDCLOUD
+    domains = vision_functions.get_domains(json_dict)
+    wordcloud = vision_functions.get_wordcloud(domains, SEARCH_TERM)
+    wordcloud.to_file('image_outputs/domian_wordcloud.png')
+    print('domain_wordcloud saved')
+
+    # BOARD WORDCLOUD
+    boards = vision_functions.get_boards(json_dict)
+    wordcloud = vision_functions.get_wordcloud(boards, SEARCH_TERM)
+    wordcloud.to_file('image_outputs/board_wordcloud.png')
+    print('board_wordcloud saved')
+
+    # PROMOTER WORDCLOUD
+    promoters = vision_functions.get_promoters(json_dict)
+    wordcloud = vision_functions.get_wordcloud(promoters, SEARCH_TERM)
+    wordcloud.to_file('image_outputs/promoter_wordcloud.png')
+    print('promoter_wordcloud saved')
+
+    # CREATED AT GRAPH
+    #dates = vision_functions.get_dates(json_dict)
+    #date_graph = vision_functions.get_date_graph(dates)
+    #date_graph.to_file('date_graph.png')
+    #print('date graph saved')
+
+    # LABEL COSSIM
+    vectors = vision_functions.get_label_vectors(label_lists)
+    avg_cossim = str(vision_functions.get_avg_cosine_sim(vectors))
+    text_file = open("image_outputs/cossim.txt", "w")
+    text_file.write("Average Cossine Similarity: %s" % avg_cossim)
+    text_file.close()
+    print('cossim saved')
+
+    # DETECT COLOR PROPERTIES
+    df_list = []
+    for path in img_paths:
+        df_list.append(vision_functions.get_properties_df(path))
+
+    prop_json = str(vision_functions.get_properties_json(df_list))
+    intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
+    full_str = intro_str + prop_json + ']});'
+    text_file = open("image_outputs/prop_json.js", "w")
+    text_file.write(full_str)
+    text_file.close()
+    print('properties json saved')
 
 
 
