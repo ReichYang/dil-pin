@@ -6,7 +6,7 @@ from flask import render_template
 import Pinterest
 import urllib.request as req
 from flask_fontawesome import FontAwesome
-import vision_functions
+# import vision_functions
 import os
 
 
