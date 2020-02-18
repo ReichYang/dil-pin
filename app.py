@@ -70,10 +70,11 @@ def download():
 
         path=query
 
-
+        
         user_name = flask.current_app.user_info['username']
 
-      
+        print("now entering the download path")
+
         if not os.path.exists('Pics'):
             os.mkdir('Pics')
         
@@ -214,21 +215,7 @@ def get_image_pngs_json():
 
 
 
-# @app.route('/scrapper')
-# def scrapper():
-#     current_user=session.get('username')
-#     current_pw=session.get('password')
-#     current_email=session.get('email')
-#     print(current_pw, file=sys.stderr)
-#     print(current_email, file=sys.stderr)
-#     print(current_user, file=sys.stderr)
-#     # pint = Pinterest.Pinterest(email=current_email, password=current_pw, username=current_user)
-#     # print(pint.login())
-#     user_data=pint.get_user_overview()
 
-#     # data=pint.get_user_overview()
-
-#     return render_template("user.html")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)
