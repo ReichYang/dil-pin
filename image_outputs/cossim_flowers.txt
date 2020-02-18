@@ -1,0 +1,1 @@
+Average Cossine Similarity: 0.3607302295376
