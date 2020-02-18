@@ -7,5 +7,4 @@ gunicorn
 wordcloud
 matplotlib
 pandas
-google-cloud-vision
 sklearn
