@@ -75,7 +75,7 @@ def download():
 
         print("now entering the download path")
 
-        print(request.form)
+        # print(request.form)
         # print(user_name)
 
         if not os.path.exists('Pics'):
@@ -89,6 +89,7 @@ def download():
             img_name=re.search(pattern='[0-9a-z]*.jpg',string=i).group()
             # print('/'+path+'/'+img_name)  
             req.urlretrieve(i, 'Pics/'+user_name+'_'+query+'/'+img_name)
+        print('download succes')
         return  "susscess"
 
 
@@ -221,4 +222,6 @@ def get_image_pngs_json():
 
 
 if __name__ == '__main__':
+    from werkzeug.serving import WSGIRequestHandler
+    WSGIRequestHandler.protocol_version = "HTTP/1.1"
     app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)
