@@ -65,8 +65,8 @@ def login(data=None):
 @app.route('/download', methods=['POST', 'GET'])
 def download():
     if request.method == 'POST':
-        query = flask.request.args.get('query')
-        imgs = flask.request.args.getlist('doc_imgs[]')
+        query = request.form['query']
+        imgs = request.form.getlist('doc_imgs[]')
 
         path=query
 
@@ -74,6 +74,9 @@ def download():
         user_name = flask.current_app.user_info['username']
 
         print("now entering the download path")
+
+        print(request.form)
+        # print(user_name)
 
         if not os.path.exists('Pics'):
             os.mkdir('Pics')
