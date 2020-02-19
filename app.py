@@ -64,7 +64,7 @@ def login(data=None):
 
 @app.route('/download', methods=['POST', 'GET'])
 def download():
-    if request.method == 'GET':
+    if request.method == 'POST':
         query = flask.request.args.get('query')
         imgs = flask.request.args.getlist('doc_imgs[]')
 

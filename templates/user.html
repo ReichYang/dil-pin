@@ -326,8 +326,9 @@
                     <div class="has-text-centered">
                         <button class="button is-link is-light" id='downloadpic' style="display:none">Download All
                             Pictures</button>
-                        <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to Image Analytics
-                                Pictures</button>
+                        <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to Image
+                            Analytics
+                            Pictures</button>
                     </div>
                     <br>
 
@@ -373,7 +374,7 @@
                 $('#downloadpic').text('Downloading')
                 $.ajax({
                     url: "/download",
-                    type: "get",
+                    type: "post",
                     data: {
                         query: q,
                         doc_imgs
@@ -387,9 +388,12 @@
                         $("#downloadpic").append($(
                             '<span class="icon is-small"> <i class="fa fa-check"></i></span>'
                         ))
-       
 
 
+
+                    },
+                    error: function(){
+                        $('#downloadpic').text('not successful');
                     }
 
                 })
@@ -504,7 +508,7 @@
                     } else {
                         for (let i = counter; i < counter + 16; i += 1) {
 
-                 
+
                             let myHTML = $(
                                 '<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src=' +
                                 doc_imgs[i] +
