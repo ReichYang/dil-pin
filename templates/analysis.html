@@ -53,11 +53,13 @@
                 </select>
             </div>
        
-            <div class="button is-light" id="ana">Analyze This Folder</div>
+            <form>
+                <div class="button is-light" id="ana">Analyze This Folder</div>
+            </form> 
 
             <form action="/download_folder" method="post">
                     <input type="hidden" id='current_select' name="folder">
-                    <button class="button is-light" id="dfl">Download This Folder</div>
+                    <button class="button is-info" id="dfl">Download This Folder</div>
             </form>
             
            
@@ -116,7 +118,7 @@
                         .length + ' pics in this folder.</div>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
-                        $img.attr('src', 'Pics' + '/' + trim(dir_name) + '/' + element)
+                        $img.attr('src', 'Pics' + '/' + dir_name.trim() + '/' + element)
                         $('#folderinfo').append($img)
                     });
                     // $('#folderinfo').append('<div class="tag">')
