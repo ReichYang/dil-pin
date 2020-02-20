@@ -372,6 +372,7 @@
                 let q = $('#query').val();
                 $('#downloadpic').attr('class', "button is-link is-light is-loading")
                 $('#downloadpic').text('Downloading')
+                $('#analysis_pic').css('display', 'inline')
                 $.ajax({
                     url: "/download",
                     type: "post",

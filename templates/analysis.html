@@ -46,7 +46,7 @@
     <section class="columns is-multiple">
         <div class="column is-one-third">
             <div class="select is-multiple">
-                <select multiple size="6">
+                <select multiple size="6" id="folders_to_select">
                     {% for key in data %}
                     <option value="{{key}}"> {{key}}</option>
                     {% endfor%}
@@ -54,6 +54,12 @@
             </div>
        
             <div class="button is-light" id="ana">Analyze This Folder</div>
+
+            <form action="/download_folder" method="post">
+                    <input type="hidden" id='current_select' name="folder">
+                    <button class="button is-light" id="dfl">Download This Folder</div>
+            </form>
+            
            
             <div class="box" id="folderinfo"></div>
         </div>
@@ -87,6 +93,12 @@
 </body>
 <script>
     $(document).ready(function () {
+        $('#folders_to_select').change(function(){
+            console.log($("option:selected").text())
+            $('#current_select').attr('value',$("option:selected").text())
+
+        })
+
         $('#ana').click(function () {
             dir_name = $("option:selected").text()
             $.ajax({
@@ -104,7 +116,7 @@
                         .length + ' pics in this folder.</div>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
-                        $img.attr('src', 'Pics' + '/' + dir_name + '/' + element)
+                        $img.attr('src', 'Pics' + '/' + trim(dir_name) + '/' + element)
                         $('#folderinfo').append($img)
                     });
                     // $('#folderinfo').append('<div class="tag">')
@@ -116,6 +128,7 @@
 
 
         });
+
 
 
         $('#ts1').click(function () {

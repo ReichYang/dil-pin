@@ -8,3 +8,5 @@ wordcloud
 matplotlib
 pandas
 sklearn
+wheel
+uwsgi

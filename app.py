@@ -8,6 +8,7 @@ import urllib.request as req
 from flask_fontawesome import FontAwesome
 # import vision_functions
 import os
+import zipfile
 
 
 app = Flask(__name__)
@@ -109,6 +110,23 @@ def analysis():
             return render_template('analysis.html',data=dirs)
 
 
+@app.route('/download_folder', methods=['POST'])
+def download_folder():
+    if request.method == 'POST':
+         folder = request.form['folder']
+         folder= folder.strip()
+         print(folder)
+
+         filename= folder+'.zip'
+         print(filename)
+         zipf = zipfile.ZipFile(filename,'w', zipfile.ZIP_DEFLATED)
+         for root,dirs, files in os.walk('Pics/'+folder):
+             for file in files:
+                 zipf.write('Pics/'+folder+'/'+file)
+         zipf.close()
+         print('sending file')
+         return flask.send_file(filename, mimetype = 'zip',attachment_filename= folder+'.zip', as_attachment = True)
+         
 @app.route('/get_folder', methods=['GET'])
 def get_folder():
      if request.method == 'GET':
@@ -119,6 +137,8 @@ def get_folder():
          res['summary']=os.stat('Pics/'+folder)
          res['array']=os.listdir('Pics/'+folder)
          flask.current_app.folder_name = folder
+
+        
 
         # So the variable res['array'] contains all the file names you need to use.
         # You could continue coding from here
