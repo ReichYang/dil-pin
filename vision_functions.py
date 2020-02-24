@@ -142,8 +142,8 @@ def get_wordcloud(label_lists, search_term):
         concat_labels = concat_labels + ' ' + str(label_str)
         
     wordcloud = WordCloud(stopwords=[search_term], background_color='white', collocations=True, 
-                        #max_words=100, 
-                        min_font_size=0, width= 7000, height = 1800
+                        max_words=150, 
+                        min_font_size=0, width= 1500, height = 400
                         ).generate(concat_labels)
     plt.figure(figsize=[15,15])
     wordcloud.recolor(color_func=gray_color_func, random_state=9)
@@ -159,8 +159,8 @@ def get_desc_wordcloud(label_lists, search_term):
         concat_labels = concat_labels + ' ' + str(label_str)
         
     wordcloud = WordCloud(stopwords=search_term, background_color='white', collocations=True, 
-                        #max_words=100, 
-                        min_font_size=0, width= 7000, height = 1800
+                        max_words=150, 
+                        min_font_size=0, width= 1500, height = 400
                         ).generate(concat_labels)
     plt.figure(figsize=[15,15])
     wordcloud.recolor(color_func=gray_color_func, random_state=9)
