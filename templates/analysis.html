@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <section class="hero is-small is-light is-bold">
+    <section class="hero is-small is-light is-primary is-bold">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -150,9 +150,13 @@
 
         $('#ts1').click(function () {
             console.log("triggered")
+            dir_name = $("option:selected").text()
             $.ajax({
                 url: "/get_image_pngs_json",
-                type: "get",
+                type: "get", 
+                data: {
+                    name: dir_name
+                },
 
                 success: function (response) {
                     console.log('testing yes')
