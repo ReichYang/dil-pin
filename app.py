@@ -179,11 +179,11 @@ def get_image_pngs_json():
 
         MAX = 15
         i = 1
-        directory = os.fsencode('Pics/' + FOLDER_NAME)
+        directory = os.fsencode('static/Pics/' + FOLDER_NAME)
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
             if (filename.endswith(".jpg") & (i <= MAX)): 
-                img_str = 'Pics/' + FOLDER_NAME+ '/'+ str(filename)
+                img_str = 'static/Pics/' + FOLDER_NAME+ '/'+ str(filename)
                 img_paths.append(img_str)
                 i = i +1
 
@@ -193,7 +193,7 @@ def get_image_pngs_json():
         # LABEL WORDCLOUD
         label_lists = vision_functions.get_label_lists(img_paths)
         wordcloud = vision_functions.get_wordcloud(label_lists, SEARCH_TERM)
-        wordcloud.to_file('image_outputs/label_wordcloud_' + SEARCH_TERM + '.png')
+        wordcloud.to_file('static/image_outputs/label_wordcloud_' + FOLDER_NAME + '.png')
         print('label_wordcloud saved')
 
         # DESCRIPTION WORDCLOUD
@@ -202,25 +202,25 @@ def get_image_pngs_json():
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
         wordcloud = vision_functions.get_desc_wordcloud(descripts, STOP_WORDS)
-        wordcloud.to_file('image_outputs/description_wordcloud_' + SEARCH_TERM + '.png')
+        wordcloud.to_file('static/image_outputs/description_wordcloud_' + FOLDER_NAME + '.png')
         print('decription_wordcloud saved')
 
         # DOMAIN WORDCLOUD
         domains = vision_functions.get_domains(json_dict)
         wordcloud = vision_functions.get_wordcloud(domains, SEARCH_TERM)
-        wordcloud.to_file('image_outputs/domian_wordcloud_' + SEARCH_TERM + '.png')
+        wordcloud.to_file('static/image_outputs/domian_wordcloud_' + FOLDER_NAME + '.png')
         print('domain_wordcloud saved')
 
         # BOARD WORDCLOUD
         boards = vision_functions.get_boards(json_dict)
         wordcloud = vision_functions.get_wordcloud(boards, SEARCH_TERM)
-        wordcloud.to_file('image_outputs/board_wordcloud_' + SEARCH_TERM + '.png')
+        wordcloud.to_file('static/image_outputs/board_wordcloud_' + FOLDER_NAME + '.png')
         print('board_wordcloud saved')
 
         # PROMOTER WORDCLOUD
         promoters = vision_functions.get_promoters(json_dict)
         wordcloud = vision_functions.get_wordcloud(promoters, SEARCH_TERM)
-        wordcloud.to_file('image_outputs/promoter_wordcloud_' + SEARCH_TERM + '.png')
+        wordcloud.to_file('static/image_outputs/promoter_wordcloud_' + FOLDER_NAME + '.png')
         print('promoter_wordcloud saved')
 
         # CREATED AT GRAPH
@@ -232,7 +232,7 @@ def get_image_pngs_json():
         # LABEL COSSIM
         vectors = vision_functions.get_label_vectors(label_lists)
         avg_cossim = str(vision_functions.get_avg_cosine_sim(vectors))
-        text_file = open(("image_outputs/cossim_" + SEARCH_TERM + ".txt"), "w")
+        text_file = open(("static/image_outputs/cossim_" + FOLDER_NAME + ".txt"), "w")
         text_file.write("Average Cossine Similarity: %s" % avg_cossim)
         text_file.close()
         print('cossim saved')
@@ -245,7 +245,7 @@ def get_image_pngs_json():
         prop_json = str(vision_functions.get_properties_json(df_list))
         intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
         full_str = intro_str + prop_json + ']});'
-        text_file = open(("image_outputs/prop_json_" + SEARCH_TERM + ".js"), "w")
+        text_file = open(("static/image_outputs/prop_json_" + FOLDER_NAME + ".js"), "w")
         text_file.write(full_str)
         text_file.close()
         print('properties json saved')
