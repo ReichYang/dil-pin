@@ -179,7 +179,7 @@ def get_image_pngs_json():
 
         MAX = 15
         i = 1
-        directory = os.fsencode('Pics/' + FOLDER_NAME)
+        directory = os.fsencode('static/Pics/' + FOLDER_NAME)
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
             if (filename.endswith(".jpg") & (i <= MAX)): 
