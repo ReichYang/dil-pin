@@ -164,7 +164,7 @@ class Pinterest:
 
         return response['resource_response']['data']
         
-    def search(self, scope, query, page_size=250):
+    def search(self, scope, query, page_size=50):
 
         next_bookmark = self.bookmark_manager.get_bookmark(primary='search', secondary=query)
 

@@ -286,9 +286,9 @@
                 <div class="column is-half">
                     <div class="card large">
                         <div class="control has-text-centered">
-                            <button class="button is-info is-centered" id='info_btn'
-                                style="margin-left: auto;  margin-right: auto">Download My Info
-                            </button>
+                            <a href="/account "><button class="button is-info is-centered" id='info_btn'
+                                style="margin-left: auto;  margin-right: auto" href="/account">Download My Info
+                            </button></a>
                         </div>
                         <div class="card-content">
                             <div class="media">
@@ -421,23 +421,13 @@
 
             $('#info_btn').click(function () {
                 console.log('info down')
-                $.ajax({
-                    url: "/account",
-                    type: "get",
-                    data: {
-                        query: 'get'
-                    },
-
-
-                    success: function (response) {
-
-                        $('#info_btn').text('Successfully download ')
-                    }
+                $('#info_btn').text('Successfully download ')
+                    
 
 
 
 
-                })
+                
             })
 
 

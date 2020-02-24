@@ -54,7 +54,7 @@ def login(data=None):
         # print(current_account)
         res = []
         search_batch = current_account.search('pins', query)
-        while len(search_batch) > 0 and len(res) < 250:
+        while len(search_batch) > 0 and len(res) < 100:
             res += search_batch
             search_batch = current_account.search('pins', query=query)
         # res=current_account.search('pins',query)
@@ -79,17 +79,17 @@ def download():
         # print(request.form)
         # print(user_name)
 
-        if not os.path.exists('Pics'):
-            os.mkdir('Pics')
+        if not os.path.exists('static/Pics'):
+            os.mkdir('static/Pics')
         
-        if not os.path.exists('Pics/'+user_name+query):
-            os.mkdir('Pics/'+user_name+'_'+query)
+        if not os.path.exists('static/Pics/'+user_name+query):
+            os.mkdir('static/Pics/'+user_name+'_'+query)
         
         print('downloading pictures')
         for i in imgs:
             img_name=re.search(pattern='[0-9a-z]*.jpg',string=i).group()
             # print('/'+path+'/'+img_name)  
-            req.urlretrieve(i, 'Pics/'+user_name+'_'+query+'/'+img_name)
+            req.urlretrieve(i, 'static/Pics/'+user_name+'_'+query+'/'+img_name)
         print('download succes')
         return  "susscess"
 
@@ -101,12 +101,20 @@ def account():
 
         with open(user_info['username']+'.json', 'w') as f:
             json.dump(user_info, f)
-    return "success"
-    
+        print('account info')
+        return flask.send_file(user_info['username']+'.json', attachment_filename= user_info['username']+'.json', as_attachment = True)
+
+@app.route('/down_account', methods=['POST', 'GET'])
+def down_account():
+    user_info = flask.current_app.user_info
+    console.log('downaccount')
+    return flask.send_file(user_info['username']+'.json', attachment_filename= user_info['username']+'.json', as_attachment = True)
+
+
 @app.route('/analysis', methods=['POST','GET'])
 def analysis():
         if request.method == 'GET':
-            dirs=os.listdir('Pics')
+            dirs=os.listdir('static/Pics')
             return render_template('analysis.html',data=dirs)
 
 
@@ -120,9 +128,10 @@ def download_folder():
          filename= folder+'.zip'
          print(filename)
          zipf = zipfile.ZipFile(filename,'w', zipfile.ZIP_DEFLATED)
-         for root,dirs, files in os.walk('Pics/'+folder):
+
+         for root,dirs, files in os.walk('static/Pics/'+folder):
              for file in files:
-                 zipf.write('Pics/'+folder+'/'+file)
+                 zipf.write('static/Pics/'+folder+'/'+file)
          zipf.close()
          print('sending file')
          return flask.send_file(filename, mimetype = 'zip',attachment_filename= folder+'.zip', as_attachment = True)
@@ -134,8 +143,8 @@ def get_folder():
          folder = flask.request.args.get('name')
          folder= folder.strip()
          res={}
-         res['summary']=os.stat('Pics/'+folder)
-         res['array']=os.listdir('Pics/'+folder)
+         res['summary']=os.stat('static/Pics/'+folder)
+         res['array']=os.listdir('static/Pics/'+folder)
          flask.current_app.folder_name = folder
 
         
@@ -146,6 +155,11 @@ def get_folder():
 
 
          return jsonify(result=res)
+
+@app.route('/getfile', methods=['GET'])
+def getfile():
+    if request.method == 'GET':
+        return "success"
 
 # ANALYSIS BUTTON
 @app.route('/get_image_pngs_json', methods=['GET'])

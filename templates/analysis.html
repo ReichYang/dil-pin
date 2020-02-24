@@ -46,7 +46,7 @@
     <section class="columns is-multiple">
         <div class="column is-one-third">
             <div class="select is-multiple">
-                <select multiple size="6" id="folders_to_select">
+                <select multiple size="8" id="folders_to_select">
                     {% for key in data %}
                     <option value="{{key}}"> {{key}}</option>
                     {% endfor%}
@@ -62,8 +62,12 @@
                     <button class="button is-info" id="dfl">Download This Folder</div>
             </form>
             
-           
+        <div class="column is-two-thirds">
             <div class="box" id="folderinfo"></div>
+
+
+        </div>
+        
         </div>
 
     </section>
@@ -118,7 +122,9 @@
                         .length + ' pics in this folder.</div>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
-                        $img.attr('src', 'Pics' + '/' + dir_name.trim() + '/' + element)
+                        $img.attr('src', '/static/Pics' + '/' + dir_name.trim() + '/' + element)
+                        $img.attr('width', '100px')
+                        $img.attr('height', '100px')
                         $('#folderinfo').append($img)
                     });
                     // $('#folderinfo').append('<div class="tag">')
