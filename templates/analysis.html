@@ -42,44 +42,51 @@
             </div>
         </div>
     </section>
+    <div class="columns">
+        <section class="column is-multiple is-half">
+            <div class="column has-text-centered">
+                <div class="select is-multiple">
+                    <select multiple size="8" id="folders_to_select">
+                        {% for key in data %}
+                        <option value="{{key}}"> {{key}}</option>
+                        {% endfor%}
+                    </select>
+                </div>
 
-    <section class="columns is-multiple">
-        <div class="column is-one-third">
-            <div class="select is-multiple">
-                <select multiple size="8" id="folders_to_select">
-                    {% for key in data %}
-                    <option value="{{key}}"> {{key}}</option>
-                    {% endfor%}
-                </select>
-            </div>
-       
-            <form>
-                <div class="button is-light" id="ana">Analyze This Folder</div>
-            </form> 
+                <form>
+                    <div class="button is-light" id="ana" style="margin-top: 10px;">Analyze This Folder</div>
+                </form>
 
-            <form action="/download_folder" method="post">
+                <form action="/download_folder" method="post" style="margin-top: 10px;">
                     <input type="hidden" id='current_select' name="folder">
-                    <button class="button is-info" id="dfl">Download This Folder</div>
-            </form>
+                    <button class="button is-info" id="dfl">Download This Folder</button>
+
+                </form>
+                <button class="button is-warning is-light" id="ts1"  style="margin-top: 10px;">Testing Button</button>
+
+                <div class="box" id="folderinfo" style="display: none; margin-top: 10px;"></div>
+
+
+
+
+            </div>
+
+        </section>
+
+        <section class="column is-multiple is-half" id='viz'>
+
             
-        <div class="column is-two-thirds">
-            <div class="box" id="folderinfo"></div>
+
+            <p>This is contianer</p>
+           
+
+        </section>
 
 
-        </div>
-        
-        </div>
 
-    </section>
 
-    <section class="columns is-multiple" id='viz'>
-        
-        <button class="button is-light" id="ts1">Testing Button</button>
-      
-        <p>This is contianer</p>
-        <p> haha</p>
+    </div>
 
-    </section>
 
 
     <footer class="footer">
@@ -99,9 +106,9 @@
 </body>
 <script>
     $(document).ready(function () {
-        $('#folders_to_select').change(function(){
+        $('#folders_to_select').change(function () {
             console.log($("option:selected").text())
-            $('#current_select').attr('value',$("option:selected").text())
+            $('#current_select').attr('value', $("option:selected").text())
 
         })
 
@@ -115,14 +122,16 @@
                 },
                 success: function (response) {
                     $('#folderinfo').empty()
+                    $('#folderinfo').css('display','block')
                     imgs = response['result']['array']
                     overview = response['result']['summary']
                     // console.log(overview)
                     $('#folderinfo').append('<div class="tag is-info">There are ' + imgs
-                        .length + ' pics in this folder.</div>')
+                        .length + ' pics in this folder.</div><br>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
-                        $img.attr('src', '/static/Pics' + '/' + dir_name.trim() + '/' + element)
+                        $img.attr('src', '/static/Pics' + '/' + dir_name.trim() +
+                            '/' + element)
                         $img.attr('width', '100px')
                         $img.attr('height', '100px')
                         $('#folderinfo').append($img)
