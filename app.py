@@ -58,7 +58,7 @@ def login(data=None):
             res += search_batch
             search_batch = current_account.search('pins', query=query)
         # res=current_account.search('pins',query)
-        with open(str(query)+'.json', 'w') as f:
+        with open('static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+'.json', 'w') as f:
             json.dump(res, f)
 
         return flask.jsonify(res)
@@ -162,8 +162,8 @@ def getfile():
         return "success"
 
 # ANALYSIS BUTTON
-@app.route('/get_image_pngs_json', methods=['GET'])
-def get_image_pngs_json():
+@app.route('/run_analysis', methods=['GET'])
+def run_analysis():
     if request.method == 'GET':
         STOP_WORDS = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',"you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself','yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her','hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them','their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom','this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are','was', 'were', 'be', 'been', 'being', 'have', 'has', 'had','having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and','but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at','by', 'for', 'with', 'about', 'against', 'between', 'into','through', 'during', 'before', 'after', 'above', 'below', 'to','from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under','again', 'further', 'then', 'once', 'here', 'there', 'when','where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more','most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own','same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will','just', 'don', "don't", 'should', "should've", 'now', 'd', 'll','m', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn',"couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't",'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma','mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't",'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't",'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
         FOLDER_NAME = flask.request.args.get('name')
@@ -197,7 +197,7 @@ def get_image_pngs_json():
         print('label_wordcloud saved')
 
         # DESCRIPTION WORDCLOUD
-        json_path = SEARCH_TERM + '.json'
+        json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
         json_dict = vision_functions.get_json_dict(json_path)
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
