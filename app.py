@@ -178,7 +178,7 @@ def run_analysis():
         FOLDER_NAME = FOLDER_NAME.strip()
 
         SEARCH_TERM= str(re.split('_', FOLDER_NAME)[1])
-        USER_NAME = user_info = flask.current_app.user_info['username']
+        USER_NAME = flask.current_app.user_info['username']
         print(SEARCH_TERM + ' SEARCH TERM')
         print(USER_NAME + ' current user')
 
@@ -186,8 +186,6 @@ def run_analysis():
 
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= GOOGLE_CRED
         print(str(FOLDER_NAME) + ' FOLDER NAME')
-
-        
 
         # make list of image paths
         img_paths = []
@@ -205,11 +203,21 @@ def run_analysis():
         print(len(img_paths))
         print('paths gathered')
 
+        os.makedirs('static/image_outputs/' + FOLDER_NAME)
+
         # LABEL WORDCLOUD
         label_lists = vision_functions.get_label_lists(img_paths)
         wordcloud = vision_functions.get_wordcloud(label_lists, SEARCH_TERM)
-        wordcloud.to_file('static/image_outputs/label_wordcloud_' + FOLDER_NAME + '.png')
+        wordcloud.to_file('static/image_outputs/' + FOLDER_NAME + '/label_wordcloud_' + FOLDER_NAME + '.png')
         print('label_wordcloud saved')
+
+        # LABEL COSSIM
+        label_vectors = vision_functions.get_label_vectors(label_lists)
+        label_avg_cossim = str(vision_functions.get_avg_cosine_sim(label_vectors))
+        text_file = open(("static/image_outputs/" + FOLDER_NAME + "/label_cossim_" + FOLDER_NAME + ".txt"), "w")
+        text_file.write("%s" % label_avg_cossim)
+        text_file.close()
+        print('label cossim saved')
 
         # DESCRIPTION WORDCLOUD
         json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
@@ -217,40 +225,64 @@ def run_analysis():
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
         wordcloud = vision_functions.get_desc_wordcloud(descripts, STOP_WORDS)
-        wordcloud.to_file('static/image_outputs/description_wordcloud_' + FOLDER_NAME + '.png')
+        wordcloud.to_file('static/image_outputs/' + FOLDER_NAME + '/description_wordcloud_' + FOLDER_NAME + '.png')
         print('decription_wordcloud saved')
+
+        # DESCR COSSIM
+        desc_vectors = vision_functions.get_label_vectors(descripts)
+        desc_avg_cossim = str(vision_functions.get_avg_cosine_sim(desc_vectors))
+        text_file = open(("static/image_outputs/" + FOLDER_NAME + "/descript_cossim_" + FOLDER_NAME + ".txt"), "w")
+        text_file.write("%s" % desc_avg_cossim)
+        text_file.close()
+        print('description cossim saved')
 
         # DOMAIN WORDCLOUD
         domains = vision_functions.get_domains(json_dict)
         wordcloud = vision_functions.get_wordcloud(domains, SEARCH_TERM)
-        wordcloud.to_file('static/image_outputs/domian_wordcloud_' + FOLDER_NAME + '.png')
+        wordcloud.to_file('static/image_outputs/' + FOLDER_NAME + '/domian_wordcloud_' + FOLDER_NAME + '.png')
         print('domain_wordcloud saved')
+
+        # DOMAIN COSSIM
+        domain_vectors = vision_functions.get_label_vectors(domains)
+        domain_avg_cossim = str(vision_functions.get_avg_cosine_sim(domain_vectors))
+        text_file = open(("static/image_outputs/" + FOLDER_NAME + "/domain_cossim_" + FOLDER_NAME + ".txt"), "w")
+        text_file.write("%s" % domain_avg_cossim)
+        text_file.close()
+        print('domain cossim saved')
 
         # BOARD WORDCLOUD
         boards = vision_functions.get_boards(json_dict)
         wordcloud = vision_functions.get_wordcloud(boards, SEARCH_TERM)
-        wordcloud.to_file('static/image_outputs/board_wordcloud_' + FOLDER_NAME + '.png')
+        wordcloud.to_file('static/image_outputs/' + FOLDER_NAME + '/board_wordcloud_' + FOLDER_NAME + '.png')
         print('board_wordcloud saved')
+
+        # BOARD COSSIM
+        boards_vectors = vision_functions.get_label_vectors(boards)
+        boards_avg_cossim = str(vision_functions.get_avg_cosine_sim(boards_vectors))
+        text_file = open(("static/image_outputs/" + FOLDER_NAME + "/board_cossim_" + FOLDER_NAME + ".txt"), "w")
+        text_file.write("%s" % boards_avg_cossim)
+        text_file.close()
+        print('board cossim saved')
 
         # PROMOTER WORDCLOUD
         promoters = vision_functions.get_promoters(json_dict)
         wordcloud = vision_functions.get_wordcloud(promoters, SEARCH_TERM)
-        wordcloud.to_file('static/image_outputs/promoter_wordcloud_' + FOLDER_NAME + '.png')
+        wordcloud.to_file('static/image_outputs/' + FOLDER_NAME + '/promoter_wordcloud_' + FOLDER_NAME + '.png')
         print('promoter_wordcloud saved')
+
+        # PROMOTER COSSIM
+        prom_vectors = vision_functions.get_label_vectors(promoters)
+        prom_avg_cossim = str(vision_functions.get_avg_cosine_sim(prom_vectors))
+        text_file = open(("static/image_outputs/" + FOLDER_NAME + "/promoter_cossim_" + FOLDER_NAME + ".txt"), "w")
+        text_file.write("%s" % prom_avg_cossim)
+        text_file.close()
+        print('promoter cossim saved')
 
         # CREATED AT GRAPH
         #dates = vision_functions.get_dates(json_dict)
         #date_graph = vision_functions.get_date_graph(dates)
         #date_graph.to_file('date_graph.png')
         #print('date graph saved')
-
-        # LABEL COSSIM
-        vectors = vision_functions.get_label_vectors(label_lists)
-        avg_cossim = str(vision_functions.get_avg_cosine_sim(vectors))
-        text_file = open(("static/image_outputs/cossim_" + FOLDER_NAME + ".txt"), "w")
-        text_file.write("Average Cossine Similarity: %s" % avg_cossim)
-        text_file.close()
-        print('cossim saved')
 
         # DETECT COLOR PROPERTIES
         df_list = []
@@ -260,11 +292,13 @@ def run_analysis():
         prop_json = str(vision_functions.get_properties_json(df_list))
         intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
         full_str = intro_str + prop_json + ']});'
-        text_file = open(("static/image_outputs/prop_json_" + FOLDER_NAME + ".js"), "w")
+        text_file = open(("static/image_outputs/color_json_" + FOLDER_NAME + ".js"), "w")
         text_file.write(full_str)
         text_file.close()
         print('properties json saved')
-        return ('objects saved')
+        print('analysis complete')
+        return redirect('/analysis')
+        
 
 ####
 #UPLOAD CODE
