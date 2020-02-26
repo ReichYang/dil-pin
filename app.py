@@ -64,7 +64,16 @@ def login(data=None):
             res += search_batch
             search_batch = current_account.search('pins', query=query)
         # res=current_account.search('pins',query)
-        with open('static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+'.json', 'w') as f:
+
+        #if file already exists
+        ORIG_PATH = 'static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+'.json'
+        NEWPATH = ORIG_PATH
+        n = 0
+        while os.path.exists(NEWPATH):
+            n = n+1
+            NEWPATH = 'static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+ '_' + str(n)+'.json'
+
+        with open(NEWPATH, 'w') as f:
             json.dump(res, f)
 
         return flask.jsonify(res)
@@ -92,10 +101,10 @@ def download():
     
         ORIG_PATH = 'static/Pics/' + FOLDER_NAME
         NEWPATH = ORIG_PATH
-        n = 1
+        n = 0
         while os.path.exists(NEWPATH):
-            NEWPATH = ORIG_PATH + '_' + str(n)
             n = n+1
+            NEWPATH = ORIG_PATH + '_' + str(n)
 
         os.mkdir(NEWPATH)
         
@@ -213,10 +222,10 @@ def run_analysis():
 
         ORIG_PATH = 'static/image_outputs/' + FOLDER_NAME
         NEWPATH = ORIG_PATH
-        n = 1
+        n = 0
         while os.path.exists(NEWPATH):
-            NEWPATH = ORIG_PATH + '_' + str(n)
             n = n+1
+            NEWPATH = ORIG_PATH + '_' + str(n)
             
         os.makedirs(NEWPATH)
 
@@ -235,7 +244,7 @@ def run_analysis():
         print('label cossim saved')
 
         # DESCRIPTION WORDCLOUD
-        json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
+        json_path = 'static/Jsons/' + FOLDER_NAME + '_' + str(n) + '.json'
         json_dict = vision_functions.get_json_dict(json_path)
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
