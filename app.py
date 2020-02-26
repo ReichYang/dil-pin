@@ -87,15 +87,23 @@ def download():
 
         if not os.path.exists('static/Pics'):
             os.mkdir('static/Pics')
-        
-        if not os.path.exists('static/Pics/'+user_name+query):
-            os.mkdir('static/Pics/'+user_name+'_'+query)
+
+        FOLDER_NAME = user_name+'_'+query
+    
+        ORIG_PATH = 'static/Pics/' + FOLDER_NAME
+        NEWPATH = ORIG_PATH
+        n = 1
+        while os.path.exists(NEWPATH):
+            NEWPATH = ORIG_PATH + '_' + str(n)
+            n = n+1
+
+        os.mkdir(NEWPATH)
         
         print('downloading pictures')
         for i in imgs:
             img_name=re.search(pattern='[0-9a-z]*.jpg',string=i).group()
             # print('/'+path+'/'+img_name)  
-            req.urlretrieve(i, 'static/Pics/'+user_name+'_'+query+'/'+img_name)
+            req.urlretrieve(i, NEWPATH+'/'+img_name)
         print('download succes')
         return  "susscess"
 
@@ -203,10 +211,12 @@ def run_analysis():
         print(len(img_paths))
         print('paths gathered')
 
-        NEWPATH = 'static/image_outputs/' + FOLDER_NAME
+        ORIG_PATH = 'static/image_outputs/' + FOLDER_NAME
+        NEWPATH = ORIG_PATH
         n = 1
         while os.path.exists(NEWPATH):
-            NEWPATH = NEWPATH + '_' + str(n)
+            NEWPATH = ORIG_PATH + '_' + str(n)
+            n = n+1
             
         os.makedirs(NEWPATH)
 
