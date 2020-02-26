@@ -45,6 +45,30 @@
     <div class="columns">
         <section class="column is-multiple is-half">
             <div class="column has-text-centered">
+                <div>
+                    <p>Upload your Google Authentication Key</p>
+                    <p>FORMAT Name: USERNAME_key.json</p>
+                    {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+                </div>
                 <div class="select is-multiple">
                     <select multiple size="8" id="folders_to_select">
                         {% for key in data %}
@@ -155,7 +179,7 @@
             console.log("triggered")
             dir_name = $("option:selected").text()
             $.ajax({
-                url: "/get_image_pngs_json",
+                url: "/run_analysis",
                 type: "get", 
                 data: {
                     name: dir_name

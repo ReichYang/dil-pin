@@ -1,12 +1,12 @@
 import flask
-from flask import Flask, redirect, url_for, request,session, jsonify
+from flask import Flask, redirect, url_for, request,session, jsonify, flash
 from datetime import datetime
 import re, sys,os, json
 from flask import render_template
 import Pinterest
 import urllib.request as req
 from flask_fontawesome import FontAwesome
-# import vision_functions
+import vision_functions
 import os
 import zipfile
 
@@ -14,6 +14,12 @@ import zipfile
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
 
+UPLOAD_FOLDER = 'static/uploads'
+
+app = Flask(__name__)
+app.secret_key = "secret key"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 @app.route("/")
@@ -168,11 +174,20 @@ def run_analysis():
         STOP_WORDS = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',"you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself','yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her','hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them','their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom','this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are','was', 'were', 'be', 'been', 'being', 'have', 'has', 'had','having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and','but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at','by', 'for', 'with', 'about', 'against', 'between', 'into','through', 'during', 'before', 'after', 'above', 'below', 'to','from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under','again', 'further', 'then', 'once', 'here', 'there', 'when','where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more','most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own','same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will','just', 'don', "don't", 'should', "should've", 'now', 'd', 'll','m', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn',"couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't",'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma','mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't",'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't",'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
         FOLDER_NAME = flask.request.args.get('name')
 
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="Google_vision_API/Pinterest-5d02d7c79626.json"
-        print(str(FOLDER_NAME) + ' FOLDER NAME')
+        #TRIM WHITESPACE
+        FOLDER_NAME = FOLDER_NAME.strip()
 
         SEARCH_TERM= str(re.split('_', FOLDER_NAME)[1])
+        USER_NAME = user_info = flask.current_app.user_info['username']
         print(SEARCH_TERM + ' SEARCH TERM')
+        print(USER_NAME + ' current user')
+
+        GOOGLE_CRED = "static/uploads/" + USER_NAME + "_key.json"
+
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= GOOGLE_CRED
+        print(str(FOLDER_NAME) + ' FOLDER NAME')
+
+        
 
         # make list of image paths
         img_paths = []
@@ -251,6 +266,38 @@ def run_analysis():
         print('properties json saved')
         return ('objects saved')
 
+####
+#UPLOAD CODE
+####
+
+ALLOWED_EXTENSIONS = set(['json'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/')
+def upload_form():
+	return render_template('upload.html')
+
+@app.route('/', methods=['POST'])
+def upload_file():
+	if request.method == 'POST':
+        # check if the post request has the file part
+		if 'file' not in request.files:
+			flash('No file part')
+			return redirect(request.url)
+		file = request.files['file']
+		if file.filename == '':
+			flash('No file selected for uploading')
+			return redirect(request.url)
+		if file and allowed_file(file.filename):
+			filename = file.filename
+			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			flash('File successfully uploaded')
+			return redirect('/analysis')
+		else:
+			flash('Allowed file type is .json')
+			return redirect(request.url)
 
 
 
