@@ -312,16 +312,16 @@ def run_analysis():
         #print('date graph saved')
 
         # DETECT COLOR PROPERTIES
-        df_list = []
-        for path in img_paths:
-            df_list.append(vision_functions.get_properties_df(path))
+        # df_list = []
+        # for path in img_paths:
+        #     df_list.append(vision_functions.get_properties_df(path))
 
-        prop_json = str(vision_functions.get_properties_json(df_list))
-        intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
-        full_str = intro_str + prop_json + ']});'
-        text_file = open((NEWPATH + "/color_json_" + FOLDER_NAME + ".js"), "w")
-        text_file.write(full_str)
-        text_file.close()
+        # prop_json = str(vision_functions.get_properties_json(df_list))
+        # intro_str = """Highcharts.chart('container', {chart: {type: 'packedbubble',height: '80%'},title: {text: 'Simple packed bubble'},tooltip: {useHTML: true,pointFormat: '<b>{point.name}:</b> {point.y}</sub>'},plotOptions: {packedbubble: {dataLabels: {enabled: true,format: '{point.name}',style: {color: 'black',textOutline: 'none',fontWeight: 'normal'}},minPointSize: 0}},series: ["""
+        # full_str = intro_str + prop_json + ']});'
+        # text_file = open((NEWPATH + "/color_json_" + FOLDER_NAME + ".js"), "w")
+        # text_file.write(full_str)
+        # text_file.close()
         print('properties json saved')
         print('analysis complete')
         return NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png'
