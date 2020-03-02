@@ -244,7 +244,10 @@ def run_analysis():
         print('label cossim saved')
 
         # DESCRIPTION WORDCLOUD
-        json_path = 'static/Jsons/' + FOLDER_NAME + '_' + str(n) + '.json'
+        if (n==0):
+            json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
+        else:
+            json_path = 'static/Jsons/' + FOLDER_NAME + '_' + str(n) + '.json'
         json_dict = vision_functions.get_json_dict(json_path)
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
