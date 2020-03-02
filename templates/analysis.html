@@ -103,7 +103,19 @@
 
             <p>This is an example of loading your viz</p>
             <p>Please wait for several mins. </p>
-            <div id='proc'></div>
+            <div id='proc'>
+                <p>Label Wordcloud</p>
+                <img id='lb'>
+                <p>Description Wordcloud</p>
+                <img id='ds'>
+                <p>Domain Wordcloud</p>
+                <img id='do'>
+                <p>Board Wordcloud</p>
+                <img id='bo'>
+                <p>Promoter Wordcloud</p>
+                <img id='pm'>
+
+            </div>
             
            
 
@@ -188,14 +200,18 @@
                 success: function (response) {
 
                     console.log('testing yes')
-                    console.log(response)
-                    divs= $('#proc')
-                    response['res'].forEach(function(e){
-                        $img= $('<img>')
-                        $img.attr('src',e)
-                        divs.append($img)
+                    console.log(response['res'])
 
-                    })
+                    $divs= $('#proc')
+                    $('img').attr('src','')
+                    $('#ib').attr('src',response['res'][0])
+                    $('#ds').attr('src',response['res'][1])
+                    $('#do').attr('src',response['res'][2])
+                    $('#bo').attr('src',response['res'][3])
+                    $('#dm').attr('src',response['res'][4])
+
+
+
                 }
             })
 
