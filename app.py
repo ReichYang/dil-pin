@@ -324,7 +324,17 @@ def run_analysis():
         # text_file.close()
         print('properties json saved')
         print('analysis complete')
-        return NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png'
+
+        returns = []
+        returns.append(NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png')
+        returns.append(NEWPATH + '/description_wordcloud_' + FOLDER_NAME + '.png')
+        returns.append(NEWPATH + '/domian_wordcloud_' + FOLDER_NAME + '.png')
+        returns.append(NEWPATH + '/board_wordcloud_' + FOLDER_NAME + '.png')
+        returns.append(NEWPATH + '/promoter_wordcloud_' + FOLDER_NAME + '.png')
+
+        
+
+        return {'res':returns}
         
 
 ####

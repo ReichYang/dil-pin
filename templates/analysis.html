@@ -103,7 +103,8 @@
 
             <p>This is an example of loading your viz</p>
             <p>Please wait for several mins. </p>
-            <img id='png'>
+            <div id='proc'></div>
+            
            
 
         </section>
@@ -188,7 +189,13 @@
 
                     console.log('testing yes')
                     console.log(response)
-                    $('#png').attr('src',response['result'])
+                    divs= $('#proc')
+                    response['res'].forEach(function(e){
+                        $img= $('<img>')
+                        $img.attr('src',e)
+                        divs.append($img)
+
+                    })
                 }
             })
 
