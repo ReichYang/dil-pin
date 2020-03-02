@@ -352,9 +352,11 @@ def upload_file():
 			flash('No file selected for uploading')
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
-			filename = file.filename
+            print('enter upload')
+			filename = flask.current_app.user_info['username'] + '_key.json'
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			flash('File successfully uploaded')
+            print(filename)
 			return redirect('/analysis')
 		else:
 			flash('Allowed file type is .json')
