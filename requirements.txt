@@ -11,3 +11,4 @@ sklearn
 wheel
 uwsgi
 google-cloud-vision
+google-cloud

@@ -324,7 +324,7 @@ def run_analysis():
         text_file.close()
         print('properties json saved')
         print('analysis complete')
-        return redirect('/analysis')
+        return NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png'
         
 
 ####
