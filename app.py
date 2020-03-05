@@ -306,10 +306,10 @@ def run_analysis():
         print('promoter cossim saved')
 
         # CREATED AT GRAPH
-        #dates = vision_functions.get_dates(json_dict)
-        #date_graph = vision_functions.get_date_graph(dates)
-        #date_graph.to_file('date_graph.png')
-        #print('date graph saved')
+        dates = vision_functions.get_dates(json_dict)
+        date_fig = vision_functions.get_date_graph(dates)
+        date_fig.savefig(NEWPATH + "/date_graph_" + FOLDER_NAME + ".png")
+        print('date graph saved')
 
         # DETECT COLOR PROPERTIES
         # df_list = []
@@ -331,6 +331,7 @@ def run_analysis():
         returns.append(NEWPATH + '/domian_wordcloud_' + FOLDER_NAME + '.png')
         returns.append(NEWPATH + '/board_wordcloud_' + FOLDER_NAME + '.png')
         returns.append(NEWPATH + '/promoter_wordcloud_' + FOLDER_NAME + '.png')
+        returns.append(NEWPATH + "/date_graph_" + FOLDER_NAME + ".png")
 
         
 

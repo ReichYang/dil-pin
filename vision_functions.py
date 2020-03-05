@@ -210,7 +210,15 @@ def get_dates(json):
             date_list.append(pd.to_datetime(date))
     return date_list
 
-#def get_date_graph(dates):#
-
+def get_date_graph(dates):
+    df = pd.DataFrame(dates)
+    df.rename(columns={0 : 'date'}, inplace=True)
+    df["year"] = df["date"].astype("datetime64").dt.year
+    df["month"] = df["date"].astype("datetime64").dt.month 
+    ax = df.groupby([df["year"]]).count().plot(kind="bar", color = '#ee9999')
+    ax.legend_.remove()
+    ax.set_title('Posts Per a Year')
+    fig = ax.get_figure()
+    return fig
 
 
