@@ -199,9 +199,9 @@ def run_analysis():
         print(SEARCH_TERM + ' SEARCH TERM')
         print(USER_NAME + ' current user')
 
-        GOOGLE_CRED = "static/uploads/" + USER_NAME + "_key.json"
+        #GOOGLE_CRED = "static/uploads/" + USER_NAME + "_key.json"
 
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= GOOGLE_CRED
+        #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= GOOGLE_CRED
         print(str(FOLDER_NAME) + ' FOLDER NAME')
 
         # make list of image paths
@@ -230,18 +230,18 @@ def run_analysis():
         os.makedirs(NEWPATH)
 
         # LABEL WORDCLOUD
-        label_lists = vision_functions.get_label_lists(img_paths)
-        wordcloud = vision_functions.get_wordcloud(label_lists, SEARCH_TERM)
-        wordcloud.to_file(NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png')
-        print('label_wordcloud saved')
+        #label_lists = vision_functions.get_label_lists(img_paths)
+        #wordcloud = vision_functions.get_wordcloud(label_lists, SEARCH_TERM)
+        #wordcloud.to_file(NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png')
+        #print('label_wordcloud saved')
 
         # LABEL COSSIM
-        label_vectors = vision_functions.get_label_vectors(label_lists)
-        label_avg_cossim = str(vision_functions.get_avg_cosine_sim(label_vectors))
-        text_file = open((NEWPATH + "/label_cossim_" + FOLDER_NAME + ".txt"), "w")
-        text_file.write("%s" % label_avg_cossim)
-        text_file.close()
-        print('label cossim saved')
+        #label_vectors = vision_functions.get_label_vectors(label_lists)
+        #label_avg_cossim = str(vision_functions.get_avg_cosine_sim(label_vectors))
+        #text_file = open((NEWPATH + "/label_cossim_" + FOLDER_NAME + ".txt"), "w")
+        #text_file.write("%s" % label_avg_cossim)
+        #text_file.close()
+        #print('label cossim saved')
 
         # DESCRIPTION WORDCLOUD
         if (n==0):
@@ -326,7 +326,7 @@ def run_analysis():
         print('analysis complete')
 
         returns = []
-        returns.append(NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png')
+        #returns.append(NEWPATH + '/label_wordcloud_' + FOLDER_NAME + '.png')
         returns.append(NEWPATH + '/description_wordcloud_' + FOLDER_NAME + '.png')
         returns.append(NEWPATH + '/domian_wordcloud_' + FOLDER_NAME + '.png')
         returns.append(NEWPATH + '/board_wordcloud_' + FOLDER_NAME + '.png')
