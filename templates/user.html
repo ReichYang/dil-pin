@@ -82,7 +82,7 @@
             cursor: pointer;
         }
     </style>
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
@@ -120,7 +120,7 @@
                 if (keystoshow.includes(key)) {
                     let $outer = $(
                         '<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>' +
-                        key + '</strong>' + '&nbsp;' + JSON.stringify(current_picture_info[key]) + ' </a>')
+                        key + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(current_picture_info[key]) + ' </a>')
 
                     $searchbox.append($outer)
 
@@ -130,7 +130,7 @@
 
 
             })
-            
+
             $("#fieldsearch").autocomplete({
                 source: pin_metadata
             });
@@ -180,10 +180,11 @@
                 if (keycode == '13') {
                     // console.log('enter')
                     // console.log($('#fieldsearch').val())
-                    let new_field= $('#fieldsearch').val()
+                    let new_field = $('#fieldsearch').val()
                     let $outer = $(
                         '<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>' +
-                            new_field + '</strong>' + '&nbsp;' + JSON.stringify(current_picture_info[new_field]) + ' </a>')
+                        new_field + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(current_picture_info[
+                        new_field]) + ' </a>')
 
                     $searchbox.append($outer)
 
@@ -294,7 +295,7 @@
                         <input id="query" class="input has-text-centered"
                             placeholder="» » » » » » put your query here « « « « « «">
                     </div>
-
+                    <!--
                     <div class="control">
                         <div class="select is-info">
                             <select>
@@ -303,7 +304,7 @@
                             </select>
                         </div>
                     </div>
-
+-->
                     <div class="control">
                         <a class="button is-info" id='sub_btn'>Search</a>
                     </div>
@@ -351,7 +352,7 @@
                         </p>
                         <div class="panel-block" id='parasearch'>
                             <p class="control has-icons-left">
-                                <input class="input" type="text" id="fieldsearch" placeholder="Search">
+                                <input class="input" type="text" id="fieldsearch" placeholder="Pin Metadata Serch: Put any words here to see if there are matched attributes">
                                 <datalist id="autocomplete-results">
 
                                 </datalist>
@@ -383,7 +384,12 @@
                     <div class="card large">
                         <div class="control has-text-centered">
                             <a href="/account "><button class="button is-info is-centered" id='info_btn'
-                                    style="margin-left: auto;  margin-right: auto" href="/account">Download My Info
+                                    style="margin-left: auto;  margin-right: 15pt;margin-top: 15pt"
+                                    href="/account">Download My Info
+                                </button></a>
+                            <a href="/analysis "><button class="button is-info is-centered"
+                                    style="margin-left: auto;  margin-right: auto;margin-top: 15pt"
+                                    href="/analysis">Go to the Analysis Page
                                 </button></a>
                         </div>
                         <div class="card-content">
@@ -395,9 +401,11 @@
                                 </div>
                                 <div class="media-content">
                                     <p class="title is-4 no-padding">{{data.full_name}}</p>
-                                    <p><span class="title is-6"><a
-                                                href="{{data.website_url}}">{{data.username}}</a></span></p>
-                                    <p class="subtitle is-6">Developer</p>
+                                    <p><span class="title is-6">
+                                            <p class="subtitle is-6">Account Name:</p><a
+                                                href="{{data.website_url}}">{{data.username}}</a>
+                                        </span></p>
+
                                 </div>
                             </div>
                             <div class="content">
@@ -420,8 +428,7 @@
                 </div>
                 <div class="column is-half">
                     <div class="has-text-centered">
-                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download All
-                            Pictures</button>
+                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download                             Pictures to the Server</button>
                         <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to Image
                             Analytics
                             Pictures</button>
@@ -559,7 +566,7 @@
                         )
                         for (var i = 0; i < 16; i++) {
                             let myHTML = $(
-                                '<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src=' +
+                                '<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img class="image is-128x128" src=' +
                                 doc_imgs[i] +
                                 '></figure>   <p class="img__description" onclick="myFunction(this);">' +
                                 doc_desc[i] + '</p></div>');
@@ -594,7 +601,7 @@
                     } else {
                         for (let i = counter; i < counter + 16; i += 1) {
                             let myHTML = $(
-                                '<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img src=' +
+                                '<div class="column is-one-quarter img__wrap"> <figure class="image is-128x128"> <img class="image is-128x128" src=' +
                                 doc_imgs[i] +
                                 '></figure>   <p class="img__description" onclick="myFunction(this);">' +
                                 doc_desc[i] + '</p></div>');

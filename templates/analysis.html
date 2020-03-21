@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login To Pinterest</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -46,28 +46,46 @@
         <section class="column is-multiple is-half">
             <div class="column has-text-centered">
                 <div>
-                    <p>Upload your Google Authentication Key</p>
-                    <p>FORMAT Name: USERNAME_key.json</p>
+                    <!-- <p>Upload Key</p> -->
+
                     {% with messages = get_flashed_messages() %}
-	  {% if messages %}
-		<ul class=flashes>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
-</p>
-<form method="post" action="/" enctype="multipart/form-data">
-    <dl>
-		<p>
-			<input type="file" name="file" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
-</form>
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    </p>
+                    <form method="post" action="/" enctype="multipart/form-data">
+                        <dl>
+                            <div class="file is-medium is-centered is-boxed has-name">
+                                
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="file" autocomplete="off" required>
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                          <i class="fas icon-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                          Upload Key
+                                        </span>
+                                      </span>
+                                      <span class="file-name is-centered">
+
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- <p>
+                                <input type="file" name="file" autocomplete="off" required>
+                            </p> -->
+                        </dl>
+                        <p>
+                            <input class='button' type="submit" value="Submit" style="margin-top: 10px; margin-bottom: 15px;">
+                        </p>
+                    </form>
                 </div>
                 <div class="select is-multiple">
                     <select multiple size="8" id="folders_to_select">
@@ -78,15 +96,17 @@
                 </div>
 
                 <form>
-                    <div class="button is-light" id="ana" style="margin-top: 10px;">Analyze This Folder</div>
+                    <div class="button is-info" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
+                    <button class="button is-info " id="ts1" style="margin-top: 10px;">Analyze This Folder</button>
                 </form>
 
                 <form action="/download_folder" method="post" style="margin-top: 10px;">
-                    <input type="hidden" id='current_select' name="folder">
-                    <button class="button is-info" id="dfl">Download This Folder</button>
+                    <input type="hidden" class='current_select' name="folder">
+                    <button class="button is-info is-light" id="dfl">Download This Folder to Your Local PC</button>
 
                 </form>
-                <button class="button is-warning is-light" id="ts1"  style="margin-top: 10px;">Testing Button</button>
+
+                <!-- <button class="button is-warning is-light" id="ts1" style="margin-top: 10px;">Testing Button</button> -->
 
                 <div class="box" id="folderinfo" style="display: none; margin-top: 10px;"></div>
 
@@ -99,27 +119,85 @@
 
         <section class="column is-multiple is-half" id='viz'>
 
-            
 
-            <p>This is an example of loading your viz</p>
-            <p>Please wait for several mins. </p>
+
+            <!-- <p>This is an example of loading your viz</p> -->
+            <p>After you press the "Analyze This Folder" botton. The visulaizations would appear here. Please wait for several mins. </p>
             <div id='proc'>
                 <!--<p>Label Wordcloud</p>
                 <img id='lb'>-->
-                <p>Description Wordcloud</p>
-                <img id='ds'>
-                <p>Domain Wordcloud</p>
-                <img id='do'>
-                <p>Board Wordcloud</p>
-                <img id='bo'>
-                <p>Promoter Wordcloud</p>
-                <img id='pm'>
-                <p>Date Graph</p>
-                <img id='dg'>
+                <div class='has-text-centered' id="vizwrap" style="display:none">
+                    <form action="/download_analysis_res" method="post" style="margin-top: 10px;">
+                        <input type="hidden" class='current_select' name="folder">
+                        <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your Local PC</button>
+                    </form>
+                    <!-- <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your Local PC</button> -->
+                    <div class="tile is-8 is-parent">
+                        <article class="tile is-child notification">
+                          <p>Description Wordcloud</p>
+                          <figure class="image is-4by3">
+                            <img id='ds'>
+                          </figure>
+                        </article>
+                      </div>
+                    
+
+                    <div class="tile is-parent">
+                        <article class="tile is-8 is-child notification">
+                          <p>Domain Wordcloud</p>
+                          <figure class="image is-4by3">
+                            <img id='do'>
+                          </figure>
+                        </article>
+                      </div>
+                    
+
+                    <div class="tile is-parent">
+                        <article class="tile is-8 is-child notification">
+                          <p >Board Wordcloud</p>
+                          <figure class="image is-4by3">
+                            <img id='bo'>
+                          </figure>
+                        </article>
+                      </div>
+                    
+
+                    <div class="tile is-parent">
+                        <article class="tile is-8 is-child notification">
+                          <p >Promoter Wordcloud</p>
+                          <figure class="image is-4by3">
+                            <img id='pm'>
+                          </figure>
+                        </article>
+                      </div>
+                    
+
+                    <div class="tile is-parent">
+                        <article class="tile is-8 is-child notification">
+                          <p>Date Graph</p>
+                          <figure class="image is-4by3">
+                            <img id='dg'>
+                          </figure>
+                        </article>
+                      </div>
+                    </div>
+
+                    <!-- <p>Description Wordcloud</p>
+                    <img id='ds'>
+                    <p>Domain Wordcloud</p>
+                    <img id='do'>
+                    <p>Board Wordcloud</p>
+                    <img id='bo'>
+                    <p>Promoter Wordcloud</p>
+                    <img id='pm'>
+                    <p>Date Graph</p>
+                    <img id='dg'> -->
+                </div>
+              
 
             </div>
-            
-           
+
+
 
         </section>
 
@@ -147,9 +225,20 @@
 </body>
 <script>
     $(document).ready(function () {
+
+        const fileInput = document.querySelector(' input[type=file]');
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector('.file-name');
+
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+
+
         $('#folders_to_select').change(function () {
             console.log($("option:selected").text())
-            $('#current_select').attr('value', $("option:selected").text())
+            $('.current_select').attr('value', $("option:selected").text())
 
         })
 
@@ -163,11 +252,11 @@
                 },
                 success: function (response) {
                     $('#folderinfo').empty()
-                    $('#folderinfo').css('display','block')
+                    $('#folderinfo').css('display', 'block')
                     imgs = response['result']['array']
                     overview = response['result']['summary']
                     // console.log(overview)
-                    $('#folderinfo').append('<div class="tag is-info">There are ' + imgs
+                    $('#folderinfo').append('<div class="tag is-info" style="margin-top:10px;margin-bottom:15px">There are ' + imgs
                         .length + ' pics in this folder.</div><br>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
@@ -187,14 +276,19 @@
 
         });
 
+        $('#downana').click(function(){
+            dir_name = $("option:selected").text()
 
+
+        })
 
         $('#ts1').click(function () {
             console.log("triggered")
             dir_name = $("option:selected").text()
+            $('#vizwrap').css('display','block')
             $.ajax({
                 url: "/run_analysis",
-                type: "get", 
+                type: "get",
                 data: {
                     name: dir_name
                 },
@@ -203,15 +297,15 @@
 
                     console.log('testing yes')
                     console.log(response['res'])
-
-                    $divs= $('#proc')
-                    $('img').attr('src','')
+                    
+                    $divs = $('#proc')
+                    $('img').attr('src', '')
                     //$('#lb').attr('src',response['res'][0])
-                    $('#ds').attr('src',response['res'][0])
-                    $('#do').attr('src',response['res'][1])
-                    $('#bo').attr('src',response['res'][2])
-                    $('#pm').attr('src',response['res'][3]) 
-                    $('#dg').attr('src',response['res'][4])
+                    $('#ds').attr('src', response['res'][0])
+                    $('#do').attr('src', response['res'][1])
+                    $('#bo').attr('src', response['res'][2])
+                    $('#pm').attr('src', response['res'][3])
+                    $('#dg').attr('src', response['res'][4])
 
 
 

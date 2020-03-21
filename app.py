@@ -9,7 +9,10 @@ import urllib.request as req
 # import vision_functions
 import os
 import zipfile
-
+from http import HTTPStatus
+from flask import Flask
+from werkzeug.exceptions import HTTPException, NotFound
+import werkzeug
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -27,23 +30,6 @@ def index():
     return render_template("login.html")
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
-    print(e)
-    return render_template('login.html',error=404)
-
-@app.errorhandler(401)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
-    print(e)
-    return render_template('login.html',error=401)
-
-# @app.errorhandler(500)
-# def page_not_found(e):
-#     # note that we set the 404 status explicitly
-#     print(e)
-#     return render_template('login.html',error=500)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login(data=None):
@@ -54,23 +40,45 @@ def login(data=None):
         # print(user, file=sys.stdout)
         pint = Pinterest.Pinterest(username=user,email=email, password=pw)
         flask.current_app.account= pint
-        login_sts= pint.login()
+        try:
+            login_sts= pint.login()
+            flask.current_app.loginsts= login_sts
+            user_info= pint.get_user_overview()
+            flask.current_app.user_info= user_info
+        # except:
+        #     return render_template('login.html',error=404)
+
+            if(login_sts.status_code==200):
+                session['username']=user
+                session['password']=pw
+                session['email']=email
+                return render_template("user.html",data=user_info)
+        except Exception as inst: 
+            # print("priting error")
+            # print(inst)
+            # print('printing the code')
+            # print(inst.args)
+            if (inst.args[0][:3]=='401'):
+                return render_template('login.html',error='401')
+            elif(inst.args[0][:3]=='404'):
+                return render_template('login.html',error='404')
+            elif (inst.args[0][:3]=='429'):
+                return render_template('login.html',error='429')
         # print(login_sts.status_code, file=sys.stdout)
         # print(pint.get_user_overview(), file=sys.stdout)
         # print(flask.current_app.account)
         # try:
-        user_info= pint.get_user_overview()
-        flask.current_app.user_info= user_info
+        # user_info= pint.get_user_overview()
+        # flask.current_app.user_info= user_info
         # except:
         #     return render_template('login.html',error=404)
 
-        if(login_sts.status_code==200):
-            session['username']=user
-            session['password']=pw
-            session['email']=email
-            return render_template("user.html",data=user_info)
-        else:
-            return redirect(url_for('login'))
+        # if(login_sts.status_code==200):
+        #     session['username']=user
+        #     session['password']=pw
+        #     session['email']=email
+        #     return render_template("user.html",data=user_info)
+
 
     if request.method == 'GET':
         
@@ -175,6 +183,25 @@ def download_folder():
          for root,dirs, files in os.walk('static/Pics/'+folder):
              for file in files:
                  zipf.write('static/Pics/'+folder+'/'+file)
+         zipf.close()
+         print('sending file')
+         return flask.send_file(filename, mimetype = 'zip',attachment_filename= folder+'.zip', as_attachment = True)
+
+
+@app.route('/download_analysis_res', methods=['POST'])
+def download_analysis_res():
+    if request.method == 'POST':
+         folder = request.form['folder']
+         folder= folder.strip()
+         print(folder)
+
+         filename= folder+'_analysis'+'.zip'
+         print(filename)
+         zipf = zipfile.ZipFile(filename,'w', zipfile.ZIP_DEFLATED)
+
+         for root,dirs, files in os.walk('static/image_outputs/'+folder):
+             for file in files:
+                 zipf.write('static/image_outputs/'+folder+'/'+file)
          zipf.close()
          print('sending file')
          return flask.send_file(filename, mimetype = 'zip',attachment_filename= folder+'.zip', as_attachment = True)
@@ -389,7 +416,7 @@ def upload_file():
 			return redirect('/analysis')
 		else:
 			flash('Allowed file type is .json')
-			return redirect(request.url)
+			return redirect('/analysis')
 
 
 

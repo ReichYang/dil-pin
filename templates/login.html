@@ -15,6 +15,7 @@
     <!-- Bulma Version 0.8.x-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
+
 </head>
 
 <body>
@@ -25,10 +26,24 @@
                     <h3 class="title has-text-black">Login</h3>
                     <hr class="login-hr">
                     <!-- <p class="subtitle has-text-black">Please login first. Then you can search and scrap images.</p> -->
-                    {% if error==404 %}
-                    <p class="subtitle has-text-black">Please login again. You might enter the wrong password.</p>
-                    {$ elif error==401 %}
-                    <p class="subtitle has-text-black">Please login again. You might enter the wrong username/email.</p>
+                    {% if error=='404' %}
+                    <div class="notification is-danger">
+                        <button class="delete"></button>
+                        Please login again. You might enter the wrong password.
+                    </div>
+                    {% elif error=='401' %}
+
+                    <div class="notification is-danger">
+                        <button class="delete"></button>
+                        Please login again. You might enter the wrong username/email or email.
+                        
+                    </div>
+                    {% elif error=='429' %}
+
+                    <div class="notification is-danger">
+                        <button class="delete"></button>
+                        You have tried to many times. Please try later.
+                    </div>
                     {% endif %}
                     <div class="box">
                         <figure class="avatar">
@@ -71,5 +86,14 @@
     </section>
 
 </body>
+<script>
+    $('.delete').click(function(){
+       
+        $notification = $('.delete').parent().remove()
+        // $notification.parent().removeChild($notification)
+    })
+
+
+</script>
 
 </html>
