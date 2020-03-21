@@ -24,7 +24,12 @@
                 <div class="column is-4 is-offset-4">
                     <h3 class="title has-text-black">Login</h3>
                     <hr class="login-hr">
-                    <p class="subtitle has-text-black">Please login first. Then you can search and scrap images.</p>
+                    <!-- <p class="subtitle has-text-black">Please login first. Then you can search and scrap images.</p> -->
+                    {% if error==404 %}
+                    <p class="subtitle has-text-black">Please login again. You might enter the wrong password.</p>
+                    {$ elif error==401 %}
+                    <p class="subtitle has-text-black">Please login again. You might enter the wrong username/email.</p>
+                    {% endif %}
                     <div class="box">
                         <figure class="avatar">
                             <img src="https://i.pinimg.com/originals/95/84/c8/9584c88ce09f172901c9168628531f65.png">
@@ -32,27 +37,31 @@
                         <form action="/login" method="post">
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="email" placeholder="Your Email" name='email' autofocus="">
+                                    <input class="input is-large" type="email" placeholder="Your Email" name='email'
+                                        autofocus="">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="username" name='username' placeholder="Your Username">
+                                    <input class="input is-large" type="username" name='username'
+                                        placeholder="Your Username">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="password" name='password' placeholder="Your Password">
+                                    <input class="input is-large" type="password" name='password'
+                                        placeholder="Your Password">
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <label class="checkbox">
-                  <input type="checkbox">
-                  Remember me
-                </label>
-                            </div>
-                            <button class="button is-block is-info is-large is-fullwidth">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                    <input type="checkbox">
+                                    Remember me
+                                </label>
+                            </div> -->
+                            <button class="button is-block is-info is-large is-fullwidth">Login <i class="fa fa-sign-in"
+                                    aria-hidden="true"></i></button>
                         </form>
                     </div>
 

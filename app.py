@@ -5,8 +5,8 @@ import re, sys,os, json
 from flask import render_template
 import Pinterest
 import urllib.request as req
-from flask_fontawesome import FontAwesome
-import vision_functions
+# from flask_fontawesome import FontAwesome
+# import vision_functions
 import os
 import zipfile
 
@@ -27,6 +27,24 @@ def index():
     return render_template("login.html")
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    print(e)
+    return render_template('login.html',error=404)
+
+@app.errorhandler(401)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    print(e)
+    return render_template('login.html',error=401)
+
+# @app.errorhandler(500)
+# def page_not_found(e):
+#     # note that we set the 404 status explicitly
+#     print(e)
+#     return render_template('login.html',error=500)
+
 @app.route('/login', methods=['POST', 'GET'])
 def login(data=None):
     if request.method == 'POST':
@@ -40,9 +58,11 @@ def login(data=None):
         # print(login_sts.status_code, file=sys.stdout)
         # print(pint.get_user_overview(), file=sys.stdout)
         # print(flask.current_app.account)
-
+        # try:
         user_info= pint.get_user_overview()
         flask.current_app.user_info= user_info
+        # except:
+        #     return render_template('login.html',error=404)
 
         if(login_sts.status_code==200):
             session['username']=user
@@ -377,4 +397,4 @@ def upload_file():
 if __name__ == '__main__':
     from werkzeug.serving import WSGIRequestHandler
     WSGIRequestHandler.protocol_version = "HTTP/1.1"
-    app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)
+    app.run(host="0.0.0.0", port=8080,debug=False, use_reloader=True)
