@@ -113,7 +113,7 @@ def download():
         imgs = request.form.getlist('doc_imgs[]')
 
         path=query
-
+        path.replace(" ","_")
         
         user_name = flask.current_app.user_info['username']
 
