@@ -23,4 +23,4 @@
 - Add margins to the elements in the page
 - Hide the output cursor of the anlaysis plots
 - Put the analysis plot into a box
-- Add button to download the analysis pictures
+- Add a button to download the analysis pictures
