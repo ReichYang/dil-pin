@@ -9,6 +9,20 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
+        #gotop {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed/sticky position */
+            bottom: 20px;
+            /* Place the button at the bottom of the page */
+            right: 15px;
+            /* Place the button 30px from the right */
+            z-index: 99;
+            /* Make sure it does not overlap */
+            border-radius: 10px;
+        }
+
         #auto_ select select {
             width: 258px;
             position: relative;
@@ -88,11 +102,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+           function topFunction() {
+            $('html').animate({ scrollTop: 0 }, 'slow')
+            $('html, body').animate({ scrollTop: 0 }, 'slow')
+            // document.body.scrollTop = 0; // For Safari
+            // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+
         function myFunction(imgs) {
+            $("#fieldsearch").unbind("keypress")
             doc_resp = JSON.parse(localStorage.getItem("doc_resp"));
             $("#detailcol").css('display', 'flex')
             let container = $(".img_container").css('display', 'block')
-
+            console.log('this is')
+            console.log(imgs)
             // Get the expanded image
             let expandImg = document.getElementById("expandedImg");
             $(expandedImg).attr('class', 'is-128x128')
@@ -115,12 +139,13 @@
             let keystoshow = ['created_at', 'description', 'grid_title', 'is_promoted', 'is_uploaded']
             pin_metadata = Object.keys(current_picture_info)
             Object.keys(current_picture_info).map(function (key) {
-                console.log(key)
-                console.log(current_picture_info[key])
+                // console.log(key)
+                // console.log(current_picture_info[key])
                 if (keystoshow.includes(key)) {
                     let $outer = $(
                         '<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>' +
-                        key + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(current_picture_info[key]) + ' </a>')
+                        key + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(current_picture_info[
+                            key]) + ' </a>')
 
                     $searchbox.append($outer)
 
@@ -181,12 +206,16 @@
                     // console.log('enter')
                     // console.log($('#fieldsearch').val())
                     let new_field = $('#fieldsearch').val()
-                    let $outer = $(
+                    console.log("new_field")
+                    console.log(new_field)
+                    console.log(current_picture_info)
+                    let $outer_n = $(
                         '<a class="panel-block is-active"> <span class="panel-icon"> <i class="fa fa-paper-plane" aria-hidden="true"></i></span><strong>' +
-                        new_field + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(current_picture_info[
-                        new_field]) + ' </a>')
+                        new_field + '</strong>' + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(
+                            current_picture_info[
+                                new_field]) + ' </a>')
 
-                    $searchbox.append($outer)
+                    $searchbox.append($outer_n)
 
                 }
             });
@@ -264,6 +293,7 @@
 </head>
 
 <body>
+    <button class="button is-info is-light" onclick="topFunction()" id="gotop" title="Go to top">Top</button>
     <section class="hero is-small is-info is-bold">
         <div class="hero-body">
             <div class="container">
@@ -352,7 +382,8 @@
                         </p>
                         <div class="panel-block" id='parasearch'>
                             <p class="control has-icons-left">
-                                <input class="input" type="text" id="fieldsearch" placeholder="Pin Metadata Serch: Put any words here to see if there are matched attributes">
+                                <input class="input" type="text" id="fieldsearch"
+                                    placeholder="Pin Metadata Serch: Put any words here to see if there are matched attributes">
                                 <datalist id="autocomplete-results">
 
                                 </datalist>
@@ -388,8 +419,8 @@
                                     href="/account">Download My Info
                                 </button></a>
                             <a href="/analysis "><button class="button is-info is-centered"
-                                    style="margin-left: auto;  margin-right: auto;margin-top: 15pt"
-                                    href="/analysis">Go to the Analysis Page
+                                    style="margin-left: auto;  margin-right: auto;margin-top: 15pt" href="/analysis">Go
+                                    to the Analysis Page
                                 </button></a>
                         </div>
                         <div class="card-content">
@@ -402,7 +433,7 @@
                                 <div class="media-content">
                                     <p class="title is-4 no-padding">{{data.full_name}}</p>
                                     <p><span class="title is-6">
-                                            <p class="subtitle is-6">Account Name:</p><a
+                                            <p class="subtitle is-6" style="margin-bottom:0">Account Name:</p><a
                                                 href="{{data.website_url}}">{{data.username}}</a>
                                         </span></p>
 
@@ -428,8 +459,10 @@
                 </div>
                 <div class="column is-half">
                     <div class="has-text-centered">
-                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download                             Pictures to the Server</button>
-                        <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to the Analysis Page</button>
+                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download Pictures
+                            to the Server</button>
+                        <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to the
+                            Analysis Page</button>
                     </div>
                     <br>
 
@@ -560,7 +593,7 @@
 
                         let $grid = $('#grid')
                         let $pictures = $(
-                            '<div class="columns is-multiline is-mobile" id="pictures">'
+                            '<div style="padding:10px" class="columns is-multiline is-mobile" id="pictures">'
                         )
                         for (var i = 0; i < 16; i++) {
                             let myHTML = $(
@@ -584,7 +617,26 @@
 
             });
 
+            mybutton = document.getElementById("gotop");
 
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
 
 
 

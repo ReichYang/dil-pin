@@ -97,13 +97,13 @@
                 </div>
 
                 <form>
-                    <div class="button is-info" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
-                    <button class="button is-info" id="testing1" style="margin-top: 10px;">Analyze This Folder</button>
+                    <div class="button is-primary" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
+                    <button class="button is-primary" id="testing1" style="margin-top: 10px;">Analyze This Folder</button>
                 </form>
 
                 <form action="/download_folder" method="post" style="margin-top: 10px;">
                     <input type="hidden" class='current_select' name="folder">
-                    <button class="button is-info is-light" id="dfl">Download This Folder to Your Local PC</button>
+                    <button class="button is-primary is-light" id="dfl">Download This Folder to Your Local PC</button>
 
                 </form>
 
@@ -135,7 +135,7 @@
                             Local PC</button>
                     </form>
                     <!-- <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your Local PC</button> -->
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                    <div class="tile is-parent is-8" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
                             <p>Description Wordcloud – What descriptions are on these images?</p>
                             <figure class="image is-4by3">
@@ -145,7 +145,7 @@
                     </div>
 
 
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                    <div class="tile is-parent is-8" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
                             <p>Domain Wordcloud – What domains provide these images?</p>
                             <figure class="image is-4by3">
@@ -155,7 +155,7 @@
                     </div>
 
 
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                    <div class="tile is-parent is-8" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
                             <p>Board Wordcloud – What boards are these images attached to?</p>
                             <figure class="image is-4by3">
@@ -165,7 +165,7 @@
                     </div>
 
 
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                    <div class="tile is-parent is-8" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
                             <p>Promoter Wordcloud – What promoters are promoting on this search?</p>
                             <figure class="image is-4by3">
@@ -175,7 +175,7 @@
                     </div>
 
 
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                    <div class="tile is-parent is-8" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
                             <p>Date Graph – What year are these images created?</p>
                             <figure class="image is-4by3">
@@ -260,7 +260,7 @@
                     overview = response['result']['summary']
                     // console.log(overview)
                     $('#folderinfo').append(
-                        '<div class="tag is-info" style="margin-top:10px;margin-bottom:15px">There are ' +
+                        '<div class="tag is-primary" style="margin-top:10px;margin-bottom:15px">There are ' +
                         imgs
                         .length + ' pics in this folder.</div><br>')
                     imgs.forEach(element => {
