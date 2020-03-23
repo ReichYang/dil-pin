@@ -24,3 +24,4 @@
 - Hide the output cursor of the anlaysis plots
 - Put the analysis plot into a box
 - Add a button to download the analysis pictures
+- And preholder to the loading page
