@@ -61,29 +61,30 @@
                     <form method="post" action="/" enctype="multipart/form-data">
                         <dl>
                             <div class="file is-medium is-centered is-boxed has-name">
-                                
+
                                 <label class="file-label">
                                     <input class="file-input" type="file" name="file" autocomplete="off" required>
                                     <span class="file-cta">
                                         <span class="file-icon">
-                                          <i class="fas icon-upload"></i>
+                                            <i class="fas icon-upload"></i>
                                         </span>
                                         <span class="file-label">
-                                          Upload Key
+                                            Upload Key
                                         </span>
-                                      </span>
-                                      <span class="file-name is-centered">
+                                    </span>
+                                    <span class="file-name is-centered">
 
                                     </span>
                                 </label>
                             </div>
-                            
+
                             <!-- <p>
                                 <input type="file" name="file" autocomplete="off" required>
                             </p> -->
                         </dl>
                         <p>
-                            <input class='button' type="submit" value="Submit" style="margin-top: 10px; margin-bottom: 15px;">
+                            <input class='button' type="submit" value="Submit"
+                                style="margin-top: 10px; margin-bottom: 15px;">
                         </p>
                     </form>
                 </div>
@@ -97,7 +98,7 @@
 
                 <form>
                     <div class="button is-info" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
-                    <button class="button is-info " id="ts1" style="margin-top: 10px;">Analyze This Folder</button>
+                    <button class="button is-info" id="testing1" style="margin-top: 10px;">Analyze This Folder</button>
                 </form>
 
                 <form action="/download_folder" method="post" style="margin-top: 10px;">
@@ -122,67 +123,69 @@
 
 
             <!-- <p>This is an example of loading your viz</p> -->
-            <p>After you press the "Analyze This Folder" botton. The visulaizations would appear here. Please wait for several mins. </p>
+            <p>After you press the "Analyze This Folder" botton. The visulaizations would appear here. Please wait for
+                several mins. </p>
             <div id='proc'>
                 <!--<p>Label Wordcloud</p>
                 <img id='lb'>-->
                 <div class='has-text-centered' id="vizwrap" style="display:none">
                     <form action="/download_analysis_res" method="post" style="margin-top: 10px;">
                         <input type="hidden" class='current_select' name="folder">
-                        <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your Local PC</button>
+                        <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your
+                            Local PC</button>
                     </form>
                     <!-- <button class="button is-primary is-light" id="downana">Download The Anaysis Results to Your Local PC</button> -->
                     <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
                         <article class="tile is-child notification">
-                          <p>Description Wordcloud</p>
-                          <figure class="image is-4by3">
-                            <img id='ds'>
-                          </figure>
+                            <p>Description Wordcloud</p>
+                            <figure class="image is-4by3">
+                                <img id='ds'>
+                            </figure>
                         </article>
-                      </div>
-                    
-
-                    <div  class="tile is-parent" style="margin-left: auto;margin-right: auto;">
-                        <article class="tile is-8 is-child notification">
-                          <p>Domain Wordcloud</p>
-                          <figure class="image is-4by3">
-                            <img id='do'>
-                          </figure>
-                        </article>
-                      </div>
-                    
-
-                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
-                        <article class="tile is-8 is-child notification">
-                          <p >Board Wordcloud</p>
-                          <figure class="image is-4by3">
-                            <img id='bo'>
-                          </figure>
-                        </article>
-                      </div>
-                    
-
-                    <div  class="tile is-parent" style="margin-left: auto;margin-right: auto;">
-                        <article class="tile is-8 is-child notification">
-                          <p >Promoter Wordcloud</p>
-                          <figure class="image is-4by3">
-                            <img id='pm'>
-                          </figure>
-                        </article>
-                      </div>
-                    
-
-                    <div  class="tile is-parent" style="margin-left: auto;margin-right: auto;">
-                        <article class="tile is-8 is-child notification">
-                          <p>Date Graph</p>
-                          <figure class="image is-4by3">
-                            <img id='dg'>
-                          </figure>
-                        </article>
-                      </div>
                     </div>
 
-                    <!-- <p>Description Wordcloud</p>
+
+                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                        <article class="tile is-child notification">
+                            <p>Domain Wordcloud</p>
+                            <figure class="image is-4by3">
+                                <img id='do'>
+                            </figure>
+                        </article>
+                    </div>
+
+
+                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                        <article class="tile is-child notification">
+                            <p>Board Wordcloud</p>
+                            <figure class="image is-4by3">
+                                <img id='bo'>
+                            </figure>
+                        </article>
+                    </div>
+
+
+                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                        <article class="tile is-child notification">
+                            <p>Promoter Wordcloud</p>
+                            <figure class="image is-4by3">
+                                <img id='pm'>
+                            </figure>
+                        </article>
+                    </div>
+
+
+                    <div class="tile is-parent" style="margin-left: auto;margin-right: auto;">
+                        <article class="tile is-child notification">
+                            <p>Date Graph</p>
+                            <figure class="image is-4by3">
+                                <img id='dg'>
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- <p>Description Wordcloud</p>
                     <img id='ds'>
                     <p>Domain Wordcloud</p>
                     <img id='do'>
@@ -192,14 +195,14 @@
                     <img id='pm'>
                     <p>Date Graph</p>
                     <img id='dg'> -->
-                </div>
-              
-
             </div>
 
 
+    </div>
 
-        </section>
+
+
+    </section>
 
 
 
@@ -256,7 +259,9 @@
                     imgs = response['result']['array']
                     overview = response['result']['summary']
                     // console.log(overview)
-                    $('#folderinfo').append('<div class="tag is-info" style="margin-top:10px;margin-bottom:15px">There are ' + imgs
+                    $('#folderinfo').append(
+                        '<div class="tag is-info" style="margin-top:10px;margin-bottom:15px">There are ' +
+                        imgs
                         .length + ' pics in this folder.</div><br>')
                     imgs.forEach(element => {
                         let $img = $('<img>')
@@ -276,30 +281,47 @@
 
         });
 
-        $('#downana').click(function(){
+        $('#downana').click(function () {
             dir_name = $("option:selected").text()
 
 
         })
 
-        $('#ts1').click(function () {
+
+        // $('#testing1').click(function () {
+        //     dir_name = $("option:selected").text()
+        //     console.log("triggered")
+        //     $('#vizwrap').css('display', 'block')
+        //     $.ajax({
+        //         url: "/get_folder",
+        //         type: "get",
+        //         data: {
+        //             name: dir_name
+        //         },
+        //         success: function (response) {
+        //             console.log(response)
+        //         }
+        // })})
+
+        $('#testing1').click(function (e) {
+            e.preventDefault()
             console.log("triggered")
             dir_name = $("option:selected").text()
-            $('#vizwrap').css('display','block')
+            $('#vizwrap').css('display', 'block')
+            $('figure > img').attr('src', '/static/54.svg')
             $.ajax({
                 url: "/run_analysis",
                 type: "get",
                 data: {
                     name: dir_name
                 },
-
+               
                 success: function (response) {
-
                     console.log('testing yes')
-                    console.log(response['res'])
-                    
+                    console.log(response)
+
                     $divs = $('#proc')
-                    $('img').attr('src', '')
+                    $('figure > img').attr('src', '')
                     //$('#lb').attr('src',response['res'][0])
                     $('#ds').attr('src', response['res'][0])
                     $('#do').attr('src', response['res'][1])
@@ -309,12 +331,19 @@
 
 
 
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr)
+                    //Error codec
                 }
             })
 
 
 
         })
+    
+    
+    
     })
 </script>
 

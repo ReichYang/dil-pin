@@ -7,12 +7,12 @@ import Pinterest
 import urllib.request as req
 # from flask_fontawesome import FontAwesome
 import vision_functions
-import os
+import os, shutil
 import zipfile
 from http import HTTPStatus
 from flask import Flask
 from werkzeug.exceptions import HTTPException, NotFound
-import werkzeug
+import werkzeug, time
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -57,7 +57,7 @@ def login(data=None):
             # print("priting error")
             # print(inst)
             # print('printing the code')
-            # print(inst.args)
+            print(inst.args)
             if (inst.args[0][:3]=='401'):
                 return render_template('login.html',error='401')
             elif(inst.args[0][:3]=='404'):
@@ -93,16 +93,9 @@ def login(data=None):
             search_batch = current_account.search('pins', query=query)
         # res=current_account.search('pins',query)
 
-        #if file already exists
-        ORIG_PATH = 'static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+'.json'
-        NEWPATH = ORIG_PATH
-        n = 0
-        while os.path.exists(NEWPATH):
-            n = n+1
-            NEWPATH = 'static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+ '_' + str(n)+'.json'
+        flask.current_app.current_res=res
 
-        with open(NEWPATH, 'w') as f:
-            json.dump(res, f)
+       
 
         return flask.jsonify(res)
 
@@ -113,8 +106,9 @@ def download():
         imgs = request.form.getlist('doc_imgs[]')
 
         path=query
-        path.replace(" ","_")
-        
+        path=path.replace(" ","_")
+        time=datetime.now().strftime('%Y%m%d%H%M%S')
+        print(path)
         user_name = flask.current_app.user_info['username']
 
         print("now entering the download path")
@@ -122,26 +116,44 @@ def download():
         # print(request.form)
         # print(user_name)
 
+
+        
         if not os.path.exists('static/Pics'):
             os.mkdir('static/Pics')
 
-        FOLDER_NAME = user_name+'_'+query
+        FOLDER_NAME = user_name+'_'+path+"_"+time
     
         ORIG_PATH = 'static/Pics/' + FOLDER_NAME
         NEWPATH = ORIG_PATH
-        n = 0
-        while os.path.exists(NEWPATH):
-            n = n+1
-            NEWPATH = ORIG_PATH + '_' + str(n)
+        # n = 0
+        # while os.path.exists(NEWPATH):
+        #     n = n+1
+        #     NEWPATH = ORIG_PATH + '_' + str(n)
 
         os.mkdir(NEWPATH)
         
+        JS_ORIG_PATH = 'static/Jsons/' + FOLDER_NAME+ '.json'
+        JS_NEWPATH = JS_ORIG_PATH
+        # n = 0
+        # while os.path.exists(NEWPATH):
+        #     n = n+1
+        #     NEWPATH = 'static/Jsons/' + str(flask.current_app.user_info['username'])+ '_' + str(query)+ '_' + str(n)+'.json'
+
+        with open(JS_NEWPATH, 'w') as f:
+            json.dump(flask.current_app.current_res, f)
+
+
         print('downloading pictures')
         for i in imgs:
             img_name=re.search(pattern='[0-9a-z]*.jpg',string=i).group()
             # print('/'+path+'/'+img_name)  
             req.urlretrieve(i, NEWPATH+'/'+img_name)
         print('download succes')
+
+
+         #if file already exists
+        
+
         return  "susscess"
 
 
@@ -242,9 +254,9 @@ def run_analysis():
         FOLDER_NAME = FOLDER_NAME.strip()
 
         SEARCH_TERM= str(re.split('_', FOLDER_NAME)[1])
-        USER_NAME = flask.current_app.user_info['username']
-        print(SEARCH_TERM + ' SEARCH TERM')
-        print(USER_NAME + ' current user')
+        # USER_NAME = flask.current_app.user_info['username']
+        # print(SEARCH_TERM + ' SEARCH TERM')
+        # print(USER_NAME + ' current user')
 
         #GOOGLE_CRED = "static/uploads/" + USER_NAME + "_key.json"
 
@@ -266,15 +278,14 @@ def run_analysis():
 
         print(len(img_paths))
         print('paths gathered')
+        # the picture folder name will only be 'static/image_outputs/FOLDER_NAME
+
 
         ORIG_PATH = 'static/image_outputs/' + FOLDER_NAME
         NEWPATH = ORIG_PATH
-        n = 0
-        while os.path.exists(NEWPATH):
-            n = n+1
-            NEWPATH = ORIG_PATH + '_' + str(n)
-            
-        os.makedirs(NEWPATH)
+        # n = 0
+        if not os.path.exists(NEWPATH):
+            os.makedirs(NEWPATH)
 
         # LABEL WORDCLOUD
         #label_lists = vision_functions.get_label_lists(img_paths)
@@ -291,10 +302,12 @@ def run_analysis():
         #print('label cossim saved')
 
         # DESCRIPTION WORDCLOUD
-        if (n==0):
-            json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
-        else:
-            json_path = 'static/Jsons/' + FOLDER_NAME + '_' + str(n) + '.json'
+        # if (n==0):
+        #     json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
+        # else:
+        json_path = 'static/Jsons/' + FOLDER_NAME + '.json'
+
+        
         json_dict = vision_functions.get_json_dict(json_path)
         descripts = vision_functions.get_descripts(json_dict)
         STOP_WORDS.append(SEARCH_TERM)
@@ -381,9 +394,16 @@ def run_analysis():
         returns.append(NEWPATH + "/date_graph_" + FOLDER_NAME + ".png")
 
         
+        print('ready to send the thing')
+        print(returns)
+        # return flask.jsonify(res=returns)
+        return flask.jsonify(res=returns)
 
-        return {'res':returns}
-        
+
+# @app.route('/showana',methods=['GET']
+# def showana():
+#     if request.method == 'GET':
+
 
 ####
 #UPLOAD CODE
