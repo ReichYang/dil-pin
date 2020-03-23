@@ -34,7 +34,7 @@ Click the “Go to the Image Analysis Page” buttons on either the left or the 
 You can upload your Google Vision key so the web application could run object detections on your specified images. Click the “Upload Key” button and select your key ending with .json. Once you select the file to upload, the file name will appear below the button. **You have to press the “Submit” button so that the key file could be uploaded to the server.** The result of the upload, such as success or failure, will show consequently after the page is refreshed.
 ### View Images in the Folder
 You can view all the pictures downloaded from Pinterest. To do this, select the folder you want to peek in on the selection bar on the left of the screen, and then click “Peek in This Folder”. All the pictures in this folder will be displayed at the bottom of the page, along with a tag indicating the number of the pictures in this folder.
-## Download Images to Your Local Working Station
+### Download Images to Your Local Working Station
 To download the pictures on the server, just click on the button with the text “Download This Folder to Your Local PC”. The downloading will be processed in right after and a zip file containing all the pictures in your specified folder will be returned.
 ### Image Analysis
 Our web application can show you some summary statistics about the images in a folder. To do so, simply click on the “Analyze This Folder” button, and the results will be shown on the right of the screen. It only takes 15 pictures of the selected folder to analyze. Remember to select the folder, you have to make sure the folder is focused and its label turns blue. For now, the supported analysis includes:
