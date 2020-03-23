@@ -195,6 +195,8 @@ def download_folder():
          for root,dirs, files in os.walk('static/Pics/'+folder):
              for file in files:
                  zipf.write('static/Pics/'+folder+'/'+file)
+        
+         zipf.write('static/Jsons/'+folder+".json")
          zipf.close()
          print('sending file')
          return flask.send_file(filename, mimetype = 'zip',attachment_filename= folder+'.zip', as_attachment = True)
