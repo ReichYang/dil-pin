@@ -176,9 +176,15 @@ def down_account():
 
 @app.route('/analysis', methods=['POST','GET'])
 def analysis():
-        if request.method == 'GET':
-            dirs=os.listdir('static/Pics')
-            return render_template('analysis.html',data=dirs)
+    if request.method == 'GET':
+        user_info = flask.current_app.user_info
+        dirs=os.listdir('static/Pics')
+        new_dirs = []
+        for folder in dirs:
+            if folder.startswith(user_info['username']):
+                new_dirs.append(folder)
+
+        return render_template('analysis.html',data=new_dirs)
 
 
 @app.route('/download_folder', methods=['POST'])
