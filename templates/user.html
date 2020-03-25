@@ -102,9 +102,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-           function topFunction() {
-            $('html').animate({ scrollTop: 0 }, 'slow')
-            $('html, body').animate({ scrollTop: 0 }, 'slow')
+        function topFunction() {
+            $('html').animate({
+                scrollTop: 0
+            }, 'slow')
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'slow')
             // document.body.scrollTop = 0; // For Safari
             // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
@@ -297,13 +301,10 @@
     <section class="hero is-small is-info is-bold">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">
-                    Instruction
-                </h1>
                 <h2 class="subtitle">
-                    Put the keywords you want to search in the query box below. Check your account infomation on the
-                    left and the result of the search on the right. Examine the pictures by clicking on them. Download
-                    them as you want. <strong>We encourage you to download the images to the server and then download them to your machine.</strong> 
+                    Enter keywords in the query box below. Your account infomation and data appear below on the left.
+                    Search results will appear on the right. You can download your information and search result images.
+                    After conducting a search, you can further explore the results on the Analysis page.
                 </h2>
             </div>
         </div>
@@ -416,7 +417,7 @@
                         <div class="control has-text-centered">
                             <a href="/account "><button class="button is-info is-centered" id='info_btn'
                                     style="margin-left: auto;  margin-right: 15pt;margin-top: 15pt"
-                                    href="/account">Download My Info
+                                    href="/account">Download my Info
                                 </button></a>
                             <a href="/analysis "><button class="button is-info is-centered"
                                     style="margin-left: auto;  margin-right: auto;margin-top: 15pt" href="/analysis">Go
@@ -459,8 +460,8 @@
                 </div>
                 <div class="column is-half">
                     <div class="has-text-centered">
-                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download Pictures
-                            to the Server</button>
+                        <button class="button is-link is-light" id='downloadpic' style="display:none">Download Images to Server
+                        </button>
                         <button class="button is-link is-light" id='analysis_pic' style="display:none">Go to the
                             Analysis Page</button>
                     </div>
@@ -619,24 +620,24 @@
 
             mybutton = document.getElementById("gotop");
 
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () {
-            scrollFunction()
-        };
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
 
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
             }
-        }
 
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        }
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
 
 
 

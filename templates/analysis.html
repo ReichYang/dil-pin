@@ -13,7 +13,7 @@
 
     <!-- Bulma Version 0.8.x-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}" />
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}" /> -->
     <script src="https://github.highcharts.com/master/highcharts.js"></script>
     <script src="https://github.highcharts.com/master/highcharts-more.js"></script>
     <script src="https://github.highcharts.com/master/modules/exporting.js"></script>
@@ -24,6 +24,11 @@
             max-width: 800px;
             margin: 0 auto;
         }
+
+        article > p{
+            font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+        }
     </style>
 
 </head>
@@ -32,12 +37,8 @@
     <section class="hero is-small is-light is-primary is-bold">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">
-                    Instruction
-                </h1>
                 <h2 class="subtitle">
-                    Please select the folder you want to analyze and then click on the
-                    button so the scripts could run. <strong>We encourage you to download the images and the analysis results to your local machine.</strong>
+                    If you have downloaded any image searches to the server, those searches will be listed in the field below. Select a search, and then Peek at the images or use the Analyze This Folder button to explore the results. To save images, select Download This Folder to Your Local PC.
                 </h2>
             </div>
         </div>
@@ -58,7 +59,7 @@
                     {% endif %}
                     {% endwith %}
                     </p>
-                    <form method="post" action="/" enctype="multipart/form-data">
+                    <!-- <form method="post" action="/" enctype="multipart/form-data">
                         <dl>
                             <div class="file is-medium is-centered is-boxed has-name">
 
@@ -69,7 +70,7 @@
                                             <i class="fas icon-upload"></i>
                                         </span>
                                         <span class="file-label">
-                                            Upload Key
+                                            API Key (for Administrators) / Submit Administration Key
                                         </span>
                                     </span>
                                     <span class="file-name is-centered">
@@ -78,16 +79,14 @@
                                 </label>
                             </div>
 
-                            <!-- <p>
-                                <input type="file" name="file" autocomplete="off" required>
-                            </p> -->
+
                         </dl>
                         <p>
                             <input class='button' type="submit" value="Submit"
                                 style="margin-top: 10px; margin-bottom: 15px;">
                         </p>
-                    </form>
-                </div>
+                    </form> 
+                </div>-->
                 <div class="select is-multiple">
                     <select multiple size="8" id="folders_to_select">
                         {% for key in data %}
@@ -123,8 +122,7 @@
 
 
             <!-- <p>This is an example of loading your viz</p> -->
-            <p>After you press the "Analyze This Folder" botton. The visulaizations would appear here. Please wait for
-                several mins. </p>
+            <p class='has-text-centered' style="font-size: medium;">After selecting the "Analyze This Folder" button, visualizations will appear here. <br> It may take up to several minutes for results to appear. </p>
             <div id='proc'>
                 <!--<p>Label Wordcloud</p>
                 <img id='lb'>-->
@@ -229,14 +227,14 @@
 <script>
     $(document).ready(function () {
 
-        const fileInput = document.querySelector(' input[type=file]');
-        fileInput.onchange = () => {
-            if (fileInput.files.length > 0) {
-                const fileName = document.querySelector('.file-name');
+        // const fileInput = document.querySelector(' input[type=file]');
+        // fileInput.onchange = () => {
+        //     if (fileInput.files.length > 0) {
+        //         const fileName = document.querySelector('.file-name');
 
-                fileName.textContent = fileInput.files[0].name;
-            }
-        }
+        //         fileName.textContent = fileInput.files[0].name;
+        //     }
+        // }
 
 
         $('#folders_to_select').change(function () {

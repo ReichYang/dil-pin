@@ -29,20 +29,20 @@
                     {% if error=='404' %}
                     <div class="notification is-danger">
                         <button class="delete"></button>
-                        Please login again. You might enter the wrong password.
+                        Please login again. You might have entered the wrong username, email, or password.
                     </div>
                     {% elif error=='401' %}
 
                     <div class="notification is-danger">
                         <button class="delete"></button>
-                        Please login again. You might enter the wrong username/email or email.
+                        Please login again. You might have entered the wrong username, email, or password.
                         
                     </div>
                     {% elif error=='429' %}
 
                     <div class="notification is-danger">
                         <button class="delete"></button>
-                        You have tried to many times. Please try later.
+                        You have tried to many times. Please try again later.
                     </div>
                     {% endif %}
                     <div class="box">
@@ -79,7 +79,7 @@
                                     aria-hidden="true"></i></button>
                             
                         </form>
-                        <button style="margin-top: 6pt" onclick="location.href='https://reichyang.github.io/pin.github.io/';" class="button is-block is-info is-large is-fullwidth">See the Instruction Documentation <i class="fa fa-book"
+                        <button style="margin-top: 6pt" onclick="location.href='https://reichyang.github.io/pin.github.io/';" class="button is-block is-info is-large is-fullwidth">Help/Instructions<i class="fa fa-book"
                                         aria-hidden="true"></i></button>
                     </div>
 
