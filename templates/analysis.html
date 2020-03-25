@@ -25,9 +25,9 @@
             margin: 0 auto;
         }
 
-        article > p{
+        article>p {
             font-family: 'Questrial', sans-serif;
-    font-size: 14px;
+            font-size: 14px;
         }
     </style>
 
@@ -38,7 +38,9 @@
         <div class="hero-body">
             <div class="container">
                 <h2 class="subtitle">
-                    If you have downloaded any image searches to the server, those searches will be listed in the field below. Select a search, and then Peek at the images or use the Analyze This Folder button to explore the results. To save images, select Download This Folder to Your Local PC.
+                    If you have downloaded any image searches to the server, those searches will be listed in the field
+                    below. Select a search, and then Peek at the images or use the Analyze This Folder button to explore
+                    the results. To save images, select Download This Folder to Your Local PC.
                 </h2>
             </div>
         </div>
@@ -87,33 +89,42 @@
                         </p>
                     </form> 
                 </div>-->
-                <div class="select is-multiple">
-                    <select multiple size="8" id="folders_to_select">
-                        {% for key in data %}
-                        <option value="{{key}}"> {{key}}</option>
-                        {% endfor%}
-                    </select>
+                    <div class="select is-multiple">
+                        <select multiple size="8" id="folders_to_select">
+                            {% for key in data %}
+                            <option value="{{key}}"> {{key}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+
+                    <form>
+                        <div class="notification is-light" style="margin-top: 15px; margin-left: auto;margin-right: auto;width: 60%;margin-bottom: 0;">
+                            <button class="delete"></button>
+                            If you do not see any searches listed in the field above, please <a href="/back">click here to go back</a>
+                            to the search results and select Download Images to the Server.
+                        </div>
+                        <!-- <p>If you do not see any searches listed in the field above, please <a href="/back">go back</a>
+                            to the search results and select Download Images to the Server.</p> -->
+                        <div class="button is-primary" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
+                        <button class="button is-primary" id="testing1" style="margin-top: 10px;">Analyze This
+                            Folder</button>
+                    </form>
+
+                    <form action="/download_folder" method="post" style="margin-top: 10px;">
+                        <input type="hidden" class='current_select' name="folder">
+                        <button class="button is-primary is-light" id="dfl">Download This Folder to Your Local
+                            PC</button>
+
+                    </form>
+
+                    <!-- <button class="button is-warning is-light" id="ts1" style="margin-top: 10px;">Testing Button</button> -->
+
+                    <div class="box" id="folderinfo" style="display: none; margin-top: 10px;"></div>
+
+
+
+
                 </div>
-
-                <form>
-                    <div class="button is-primary" id="ana" style="margin-top: 10px;">Peek in This Folder</div>
-                    <button class="button is-primary" id="testing1" style="margin-top: 10px;">Analyze This Folder</button>
-                </form>
-
-                <form action="/download_folder" method="post" style="margin-top: 10px;">
-                    <input type="hidden" class='current_select' name="folder">
-                    <button class="button is-primary is-light" id="dfl">Download This Folder to Your Local PC</button>
-
-                </form>
-
-                <!-- <button class="button is-warning is-light" id="ts1" style="margin-top: 10px;">Testing Button</button> -->
-
-                <div class="box" id="folderinfo" style="display: none; margin-top: 10px;"></div>
-
-
-
-
-            </div>
 
         </section>
 
@@ -122,7 +133,8 @@
 
 
             <!-- <p>This is an example of loading your viz</p> -->
-            <p class='has-text-centered' style="font-size: medium;">After selecting the "Analyze This Folder" button, visualizations will appear here. <br> It may take up to several minutes for results to appear. </p>
+            <p class='has-text-centered' style="font-size: medium;">After selecting the "Analyze This Folder" button,
+                visualizations will appear here. <br> It may take up to several minutes for results to appear. </p>
             <div id='proc'>
                 <!--<p>Label Wordcloud</p>
                 <img id='lb'>-->
@@ -236,6 +248,12 @@
         //     }
         // }
 
+        $('.delete').click(function(){
+       
+       $notification = $('.delete').parent().remove()
+       // $notification.parent().removeChild($notification)
+   })
+
 
         $('#folders_to_select').change(function () {
             console.log($("option:selected").text())
@@ -313,7 +331,7 @@
                 data: {
                     name: dir_name
                 },
-               
+
                 success: function (response) {
                     console.log('testing yes')
                     console.log(response)
@@ -339,9 +357,9 @@
 
 
         })
-    
-    
-    
+
+
+
     })
 </script>
 

@@ -29,7 +29,9 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 def index():
     return render_template("login.html")
 
-
+@app.route('/back')
+def back():
+    return render_template("user.html",data=flask.current_app.user_info)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login(data=None):
@@ -98,6 +100,8 @@ def login(data=None):
        
 
         return flask.jsonify(res)
+    else :
+        return render_template("user.html",data=flask.current_app.user_info)
 
 @app.route('/download', methods=['POST', 'GET'])
 def download():
